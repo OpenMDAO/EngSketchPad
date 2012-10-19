@@ -1,0 +1,25 @@
+#
+!include ..\..\EGADS\include\$(GEM_ARCH).$(MSVC)
+LDIR = $(GEM_ROOT)\lib
+
+DEFINE = /DNDEBUG /DWIN32 /D_CONSOLE /D_UNICODE /DUNICODE
+
+OBJS =  adler32.obj gzclose.obj gzwrite.obj inftrees.obj compress.obj \
+        infback.obj trees.obj crc32.obj	gzlib.obj inffast.obj uncompr.obj \
+        deflate.obj gzread.obj inflate.obj zutil.obj
+
+
+$(LDIR)\z.lib:	$(OBJS)
+	-del $(LDIR)\z.lib
+	lib /out:$(LDIR)\z.lib $(OBJS)
+
+$(OBJS):	crc32.h inffast.h inftrees.h deflate.h inffixed.h trees.h \
+		zutil.h gzguts.h inflate.h zconf.h
+.c.obj:
+	cl /c $(COPTS) $(DEFINE) /I. $<
+
+clean:
+	-del $(OBJS)
+
+cleanall:
+	-del $(OBJS) $(LDIR)\z.lib

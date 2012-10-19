@@ -1,0 +1,18 @@
+# WINDOWS x64 using MSVS 10.0 (2010):
+#
+
+DEFINE = /DWNT /DNDEBUG /D_CONSOLE /DWIN32 /DREVISION=$(CASREV) /D_OCC64
+COPTS  = /Ot /MD /D_CRT_SECURE_NO_DEPRECATE
+CPPOPT = /Ox /MD /EHsc /GR /D_CRT_SECURE_NO_DEPRECATE
+FOPTS  = /Ox /threads /recursive /libs:dll
+LIBPTH = /link /LIBPATH:$(GEM_ROOT)\lib /LIBPATH:$(CASROOT)\$(CASARCH)\lib
+LNKPTH = /LIBPATH:$(CASROOT)\$(CASARCH)\lib
+INCS   = /I$(CASROOT)\inc /I$(CASROOT)\include\oce
+!if "$(CASREV)" == "6.3"
+LIBS   = PTKernel.lib TKBool.lib TKBO.lib TKernel.lib TKFeat.lib TKGeomAlgo.lib TKMath.lib TKOffset.lib TKPCAF.lib TKPrim.lib TKPShape.lib TKService.lib TKTopAlgo.lib TKBRep.lib TKG2d.lib TKG3d.lib TKGeomBase.lib TKShHealing.lib TKSTEP.lib TKXSBase.lib TKIGES.lib TKFillet.lib
+!endif
+!if "$(CASREV)" == "6.5"
+LIBS   = TKBool.lib TKernel.lib TKFeat.lib TKBO.lib TKGeomAlgo.lib TKMath.lib TKOffset.lib TKPrim.lib TKPShape.lib TKTopAlgo.lib TKBRep.lib TKG2d.lib TKG3d.lib TKGeomBase.lib TKShHealing.lib TKSTEP.lib TKSTEP209.lib TKSTEPBase.lib TKSTEPAttr.lib TKXSBase.lib TKIGES.lib TKFillet.lib PTKernel.lib
+!endif
+GLIBS  = gv.lib glu32.lib opengl32.lib user32.lib gdi32.lib
+MCOMP  = echo

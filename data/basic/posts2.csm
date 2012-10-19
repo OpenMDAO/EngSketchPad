@@ -1,0 +1,17 @@
+# posts2
+# written by John Dannenhoffer
+
+# default design parameters
+despmtr  r 0.5
+despmtr  h 4
+
+# base plate
+box       0 0 0 8 .5 2
+
+# posts
+patbeg i 4
+   cylinder  2*i-1  0  1  2*i-1  h*i  1  r/i
+   union
+patend
+
+end

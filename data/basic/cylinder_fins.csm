@@ -1,0 +1,56 @@
+# cylinder_fins  (cylinder with fins)
+# written by John Dannenhoffer
+
+# default design parameters
+despmtr   cyl_len   12
+despmtr   cyl_diam  1
+
+despmtr   nfin      4
+dimension height    nfin      1 1
+dimension croot     nfin      1 1
+dimension thick     nfin      1 1
+dimension alpha     nfin      1 1
+dimension xle       nfin      1 1
+dimension tle       nfin      1 1
+
+despmtr   height    "0.2;  0.6;  1.0;  1.2"
+despmtr   croot     "1.0;  1.0;  1.0;  2.0"
+despmtr   thick     "0.12; 0.12; 0.12; 0.12"
+despmtr   alpha     "30;  -30;   30;   15"
+despmtr   xle       "2.0;  4.0;  6.0;  7.0"
+despmtr   tle       "0.0;  0.0;  0.0;  45.0"
+
+# base cylinder
+cylinder  0         0         0         cyl_len   0         0         cyl_diam
+attribute cylinder  0
+
+# pattern of finlets
+patbeg    ifin      nfin
+
+    # bulid finlet
+    set chord  croot[ifin,1]
+    set rad    chord*thick[ifin,1]/2
+
+    skbeg            +rad  -rad  0
+        linseg  croot-rad  -rad  0
+        cirarc  croot      0     0   croot-rad  +rad  0
+        linseg       +rad  +rad  0
+        cirarc  0          0     0        +rad  -rad  0
+    skend
+    extrude     0          0      cyl_diam+2*height[ifin,1]
+    attribute   finlet     ifin
+
+    rotatez         alpha[ifin,1]   0.5   0
+    scale           croot[ifin,1]
+    translate       xle[ifin,1]     0     0
+    rotatex         tle[ifin,1]-90  0     0
+
+    # cut tip at the given height
+    cylinder        0               0     0       cyl_len   0         0         cyl_diam+height[ifin,1]
+    intersect
+
+    # add finlet to cylinder
+    union
+patend
+
+end

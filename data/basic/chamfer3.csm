@@ -1,0 +1,23 @@
+# chamfer3
+# written by John Dannenhoffer
+
+# box with chamfers at ymin,ymax,zmin,zmax
+box            -1.00     -1.00     -1.00      2.00      2.00      2.00
+translate       0.10      0.00      0.00
+rotatex        10.00      0.00      0.00
+
+dimension      edgeList1 4 2 0
+set            edgeList1 "3; 5;   3; 6;   4; 5;   4; 6"
+chamfer          0.20      edgeList1
+
+# box with chamfers except at xmin
+box            -2.00     -0.50     -0.50      2.00      1.00      1.00
+translate      -0.10      0.00      0.00
+dimension      edgeList2 2 2 0
+
+set            edgeList2 "0; 0;   -1; 0"
+chamfer          0.10      edgeList2
+
+subtract
+
+end

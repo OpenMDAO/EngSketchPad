@@ -1,0 +1,38 @@
+# tutorial
+# written by John Dannenhoffer
+
+# default design parameters
+despmtr   Lbar      6.00      length of bar
+despmtr   Rbar      0.15      radius of bar
+despmtr   T         0.50      thickness of weights
+despmtr   D         2.00      diameter  of weights
+despmtr   Rout      1.20      outer radius (for intersection)
+despmtr   Rfil      0.10      fillet radius at end of bar
+
+set       L         Lbar/2
+
+# shaft
+cylinder  -L        0.0       0.0       +L        0.0       0.0       Rbar
+name      shaft
+attribute shaft     1
+
+# left weight
+box       -L-T/2    -D/4      -D        T         D/2       2*D
+name      left_weight
+attribute weight    1
+union
+fillet    Rfil
+
+# rite weight 
+box       +L-T/2    -D/2      -D/2      T         D         D
+name      rite_weight
+attribute weight    2
+union
+fillet    Rfil
+
+# clip weights with outer cylinder
+cylinder  -L-T      0.00      0.00      +L+T      0.00      0.00      Rout
+attribute clipper   1
+intersect
+
+end

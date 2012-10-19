@@ -1,0 +1,50 @@
+#
+!IFNDEF GEM_ROOT
+!ERROR GEM_ROOT must be set -- Please fix the environment...
+!ENDIF
+
+all:
+	cd wvServer
+	nmake -f NMakefile
+	cd ..
+	cd EGADS\src
+	nmake -f NMakefile
+	cd ..\examples
+	nmake -f egads2cart.mak
+	nmake -f vGeom.mak
+	nmake -f vTess.mak
+	cd ..\..
+	cd OpenCSM
+	nmake -f NMakefile
+	cd ..
+	@echo  *** Completed! ***
+
+clean:
+	cd wvServer
+	nmake -f NMakefile clean
+	cd ..
+	cd EGADS\src
+	nmake -f NMakefile clean
+	cd ..\examples
+	nmake -f egads2cart.mak clean
+	nmake -f vGeom.mak clean
+	nmake -f vTess.mak clean
+	cd ..\..
+	cd OpenCSM
+	nmake -f NMakefile clean
+	cd ..
+
+cleanall:
+	cd wvServer
+	nmake -f NMakefile cleanall
+	cd ..
+	cd EGADS\src
+	nmake -f NMakefile cleanall
+	cd ..\examples
+	nmake -f egads2cart.mak cleanall
+	nmake -f vGeom.mak cleanall
+	nmake -f vTess.mak cleanall
+	cd ..\..
+	cd OpenCSM
+	nmake -f NMakefile cleanall
+	cd ..

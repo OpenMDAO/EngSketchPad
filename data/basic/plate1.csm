@@ -1,0 +1,49 @@
+# plate1
+# written by John Dannenhoffer
+
+# OML
+sphere    0.0       0.5      -4.6       5.5
+attribute upper_    0
+sphere    0.0       0.5       4.6       5.5
+attribute lower_    0
+intersect
+cylinder  0.0       0.5      -4.6       0.0      0.5       4.6       2.0
+attribute rim_      0
+intersect
+sphere    0.0       0.5       0.0       0.8
+attribute hole_     0
+subtract
+
+# cutter
+despmtr   nrib      1
+dimension ribs      nrib  4  1
+despmtr   ribs     "-4;  0;  4;  0"     rib 1
+despmtr   thick      0.05
+despmtr   zmin      -2.0
+despmtr   zmax       2.0
+
+box      -3   -3   zmin   6   6   thick    # this is a sprue to hold the ribs together
+
+patbeg irib nrib
+   set       dx   ribs[irib,3]-ribs[irib,1]
+   set       dy   ribs[irib,4]-ribs[irib,2]
+   set       ds   hypot(dx,dy)
+   set       dx   (thick/2)*(dx/ds)
+   set       dy   (thick/2)*(dy/ds)
+
+   skbeg     ribs[irib,1]+dy   ribs[irib,2]-dx   zmin
+      linseg ribs[irib,3]+dy   ribs[irib,4]-dx   zmin
+      linseg ribs[irib,3]-dy   ribs[irib,4]+dx   zmin
+      linseg ribs[irib,1]-dy   ribs[irib,2]+dx   zmin
+      linseg ribs[irib,1]+dy   ribs[irib,2]-dx   zmin
+   skend
+
+   extrude   0   0   zmax-zmin
+   attribute rib_    irib
+   union
+patend
+
+# combine cutter and OML
+intersect
+
+end

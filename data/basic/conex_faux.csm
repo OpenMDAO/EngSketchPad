@@ -1,0 +1,23 @@
+# conex_faux
+# written by John Dannenhoffer
+
+# cone         -1.00      0.00      0.00      1.00      0.00      0.00      1.00
+
+skbeg          -1.00      0.00      0.00
+   linseg       1.00      0.00      0.00
+   linseg       1.00      1.00      0.00
+   linseg      -1.00      0.00      0.00
+skend
+revolve         0.00      0.00      0.00      1.00      0.00      0.00      180.
+
+skbeg          -1.00      0.00      0.00
+   linseg       1.00      0.00      0.00
+   linseg       1.00      1.00      0.00
+   linseg      -1.00      0.00      0.00
+skend
+revolve         0.00      0.00      0.00      1.00      0.00      0.00      180.
+rotatex         180.      0.00      0.00
+
+union
+
+end

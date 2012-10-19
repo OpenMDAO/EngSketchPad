@@ -1,0 +1,24 @@
+# hole1  (box holes)
+# written by John Dannenhoffer
+
+box       -3   -3   -3    6    6    6
+
+box        2   -1   -1    2    2    2
+subtract
+
+box       -4   -1   -1    2    2    2
+subtract
+
+box       -1    2   -1    2    2    2
+subtract
+
+box       -1   -4   -1    2    2    2
+subtract
+
+box       -1   -1    2    2    2    2
+subtract
+
+box       -1   -1   -4    2    2    2
+subtract
+
+end

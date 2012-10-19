@@ -1,0 +1,12 @@
+# spline
+# written by John Dannenhoffer
+
+skbeg       0.0  0.0  0
+   spline   3.0  0.0  0
+   spline   5.0  1.0  0
+   spline   6.0  3.0  0
+   spline   7.5  5.0  0
+   spline  10.0  6.0  0
+skend
+
+end

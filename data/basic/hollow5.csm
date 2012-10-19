@@ -1,0 +1,13 @@
+# hollow5
+# written by John Dannenhoffer
+
+box            -1.00     -1.00     -1.00      2.00      2.00      2.00
+
+box            -1.00     -1.00     -1.00      2.00      2.00      2.00
+hollow         -0.10
+subtract
+
+cylinder        0.00      0.00     -2.00      0.00      0.00      2.00      0.50
+subtract
+
+end

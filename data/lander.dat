@@ -1,0 +1,51 @@
+# nominal values for global Grids
+# GLBG.xmin    -1.00
+# GLBG.xmax    +1.00
+# GLBG.ymin    -1.00
+# GLBG.ymax    +1.00
+# GLBG.zmin    -1.00
+# GLBG.zmax    +1.00
+# GLBG.buff     1.00
+# GLBG.spac     0.00
+# GLBG.imax      101
+# GLBG.jmax      101
+# GLBG.kmax      101
+
+# nominal values for basic Grids
+# BASG.dsnom   0.100
+BASG.dsnom    0.025
+# BASG.dnnom   0.005
+BASG.dnnom    0.002
+# BASG.dnrat   1.100
+# BASG.dyprim  1.000
+# BASG.dzprim  1.000
+# BASG.laypnt  25
+# BASG.extend   8
+# BASG.trmlen   4
+
+# nominal values for collar Grids
+# COLG.dsi     0.050
+COLG.dsi      0.005
+# COLG.dsj     0.025
+COLG.dsj      0.005
+# COLG.dnnom   0.005
+COLG.dnnom    0.001
+# COLG.dnrat   1.100
+# COLG.jmid    12
+# COLG.kmax    17
+
+# nominal values for patch Grids
+# PATG.ifact   4
+# PATG.buff    0.100
+
+# nominal values for Xrays
+# XRAY.dx      0.01
+# XRAY.dy      0.01
+# XRAY.dz      0.01
+# XRAY.buff    0.01
+
+# global constants
+# ijkmin         9
+# ijkmax        65
+ijkmax        129
+# nfrnge         1

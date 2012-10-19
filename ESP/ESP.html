@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "~//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<!--
+// main file for ESP (the Engineering Sketch Pad)
+// written by John Dannenhoffer
+-->
+
+<html id="mainBody">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>
+      ESP (Engineering Sketch Pad, V1.0)
+    </title>
+
+    <script type="text/javascript" src="WebViewer/webgl-utils.js"> </script>
+    <script type="text/javascript" src="WebViewer/webgl-debug.js"> </script>
+    <script type="text/javascript" src="WebViewer/J3DIMath.js">    </script>
+    <script type="text/javascript" src="WebViewer/wv-draw.js">     </script>
+    <script type="text/javascript" src="WebViewer/wv-render.js">   </script>
+    <script type="text/javascript" src="WebViewer/wv-gPrim.js">    </script>
+    <script type="text/javascript" src="WebViewer/wv-sGraph.js">   </script>
+    <script type="text/javascript" src="WebViewer/wv-socket.js">   </script>
+
+    <script type="text/javascript" src="ESP.js">         </script>
+
+    <script>
+      "use strict";
+
+      var   g = {};             // object to store "globals"
+      g.zNear =  1.0;           // have some values for Zscreen
+      g.zFar  = 11.0;
+
+      var pmtr   = new Array(); // structure for Parameters
+      var brch   = new Array(); // structure for Branches
+      var sgData = {};          // structure for auxiliary scene graph data
+
+      // initialize webSockets
+      var url = prompt("Enter hostname:port", "Localhost:7681");
+
+      getSockets("ws://"+url);
+
+      var myTree = new Tree(document, "myTree");
+
+      window.onresize        = resizeFrames;
+      document.oncontextmenu = rememberCmenuId;
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="ESP.css" />
+  </head>
+
+  <body onload="wvStart(); resizeFrames()">
+    <div id='leftframe'>
+      <p>
+        <button type="button" id="buildButton"                   >Up to date</button>
+        <button type="button" id="helpButton" onclick="cmdHelp()">Help      </button>
+      </p>
+      <p>
+	<button type="button" id="undoButton" onclick="cmdUndo()">Undo      </button>
+        <button type="button" id="saveButton" onclick="cmdSave()">Save      </button>
+      </p>
+    </div>
+    <div id='riteframe'>
+      <canvas id="WebViewer">
+        If you are seeing this, your web browser does not support the &lt;canvas&gt; element.
+      </canvas>
+    </div>
+    <br />
+    <div id='botmframe'>
+    </div>
+
+    <menu type="context" id="pmtr1_cmenu">
+      <menuitem label="Add a Parameter"      onclick="addPmtr()"      ></menuitem>
+    </menu>
+
+    <menu type="context" id="pmtr2_cmenu">
+      <menuitem label="Edit"                 onclick="editPmtr()"     ></menuitem>
+      <!--<menuitem label="Show linkages"        onclick="showLinkages()" ></menuitem>-->
+      <!--<menuitem label="Clear linkages"       onclick="clearLinkages()"></menuitem>-->
+    </menu>
+
+    <menu type="context" id="brch1_cmenu">
+      <menuitem label="Add Branch at end"    onclick="addBrch()"      ></menuitem>
+      <menuitem label="Delete last Branch"   onclick="delBrch()"      ></menuitem>
+    </menu>
+
+    <menu type="context" id="brch2_cmenu">
+      <menuitem label="Edit"                 onclick="editBrch()"     ></menuitem>
+      <menuitem label="Add Branch after"     onclick="addBrch()"      ></menuitem>
+      <menuItem label="Delete this Branch"   onclick="delBrch()"      ></menuitem>
+      <menuItem label="Add Attribute"        onclick="addAttr()"      ></menuitem>
+      <menuitem label="Build to this Branch" onclick="buildTo()"      ></menuitem>
+      <!--<menuitem label="Show linkages"        onclick="showLinkages()" ></menuitem>-->
+      <!--<menuitem label="Clear linkages"       onclick="clearLinkages()"></menuitem>-->
+    </menu>
+
+    <menu type="context" id="attr2_cmenu">
+      <menuitem label="Edit"                 onclick="editAttr()"     ></menuitem>
+    </menu>
+
+    <menu type="context" id="disp2_cmenu">
+      <!--<menuitem label="Show linkages"        onclick="showLinkages()" ></menuitem>-->
+      <!--<menuitem label="Clear linkages"       onclick="clearLinkages()"></menuitem>-->
+    </menu>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+# freeform1
+# written by John Dannenhoffer
+
+udprim freeform FileName ../data/basic/freeform1.curve
+
+end

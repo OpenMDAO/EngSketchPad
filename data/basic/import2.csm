@@ -1,0 +1,10 @@
+# import2
+# written by John Dannenhoffer
+
+udprim import FileName ../data/basic/import_1.egads
+udprim import FileName ../data/basic/import_2.egads BodyNumber 3 BodyNumber 2 BodyNumber 1
+
+translate 0 0.5 0
+union
+
+end

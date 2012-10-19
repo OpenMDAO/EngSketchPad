@@ -1,0 +1,37 @@
+# posts3
+# written by John Dannenhoffer
+
+# default design parameters
+despmtr   L     2       length of post
+despmtr   R     1/2     radius of post
+despmtr   D     0.10    diameter of holes
+despmtr   ncol  6       number of columns
+despmtr   nrow  2       number of rows
+despmtr   dx    2       x-spacing between cols
+despmtr   dz    3       z-spacing between rows
+
+# internal parameter driven by design parameter
+set       H     3/4*L   height of holes
+
+# base plate
+box       0 -.5 0   ncol*dx 0.5 nrow*dz
+
+# add rows and columns of posts
+patbeg irow nrow
+   patbeg icol ncol
+      cylinder 0 0 0  0 L 0  R
+
+      # drill holes in post
+      patbeg ihole 4
+         cylinder 0 H R/2  0 H R*3/2  D/2
+         rotatey  90*(ihole-1) 0 0
+         subtract
+      patend
+
+      # move post to position and add to box
+      translate dx*(icol-1/2) 0 dz*(irow-1/2)
+      union
+   patend
+patend
+
+end

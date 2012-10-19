@@ -1,0 +1,57 @@
+# afrl_wing2  (membrame ribs and spars)
+# written by John Dannenhoffer
+
+# default design parameters
+despmtr   series    8412      mptt
+despmtr   area      40        len^2
+despmtr   aspect    6.0       -
+despmtr   taper     0.5       -
+despmtr   twist     5.0       deg
+despmtr   lesweep   30.0      deg
+despmtr   dihedral  5.0       deg
+
+despmtr   nspar     3         -
+despmtr   nrib      8         -
+
+# internal parameters
+set       cmean     sqrt(area/aspect)
+set       span      cmean*aspect
+set       sspan     span/2
+set       croot     2*cmean/(1+taper)
+set       ctip      croot*taper
+set       xtip      sspan*tand(lesweep)
+set       ytip      sspan*tand(dihedral)
+
+set       ybot      -0.1*croot
+set       ytop      +0.2*croot+ytip
+set       extend    0.02*cmean
+
+# wing OML
+mark
+udprim              naca      Series    !series
+scale               croot
+udprim              naca      Series    !series
+scale               ctip
+rotatez             -twist    0         0
+translate           xtip      ytip      -sspan
+loft                0
+
+# spars
+patbeg              ispar  nspar
+    set             frac  ispar/(nspar+1)
+    skbeg           frac*croot      ybot  +extend
+        linseg      frac*ctip+xtip  ybot  -sspan-extend
+    skend
+    extrude         0  ytop-ybot  0
+patend
+
+# ribs
+patbeg              irib  nrib
+    set             frac  (irib-1)/(nrib-1)
+    skbeg           frac*xtip-extend                     ybot  -frac*sspan
+        linseg      croot+frac*(xtip-croot+ctip)+extend  ybot  -frac*sspan+0.001
+    skend
+    extrude         0  ytop-ybot  0
+patend
+
+end

@@ -1,0 +1,21 @@
+# torus_faux
+# written by John Dannenhoffer
+
+# torus         0.00      0.00      0.00      0.00      0.00      1.00      1.00      0.10
+
+skbeg           0.90      0.00      0.00
+   cirarc       1.00      0.00      0.10      1.10      0.00      0.00
+   cirarc       1.00      0.00      -.10      0.90      0.00      0.00
+skend
+revolve         0.00      0.00      0.00      0.00      0.00      1.00      180.
+
+skbeg           0.90      0.00      0.00
+   cirarc       1.00      0.00      0.10      1.10      0.00      0.00
+   cirarc       1.00      0.00      -.10      0.90      0.00      0.00
+skend
+revolve         0.00      0.00      0.00      0.00      0.00      1.00      180.
+rotatez         180.      0.00      0.00
+
+union
+
+end

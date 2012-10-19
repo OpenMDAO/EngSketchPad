@@ -1,0 +1,149 @@
+#!/bin/bash
+
+echo
+echo "OpenCASCADE runtime AutoConfigurator for Windows"
+echo
+#
+# if arg1 is present set it to CASROOT, second is CASARCH (also optional)
+#
+if [ "$1" ]; then
+	echo $1 > tmp0
+	sed sx'\\'x/xg < tmp0 > tmp
+	rm tmp0
+	read CASROOT < tmp
+	rm tmp
+	CASARCH=
+	CASREV=
+	if [ "$2" ]; then
+		echo $2 > tmp0
+		sed sx'\\'x/xg < tmp0 > tmp
+		rm tmp0
+		read CASARCH < tmp
+		rm tmp
+	fi
+fi
+
+#
+# we must know where the OpenCASCADE distribution is!
+#
+if [ -z "$CASROOT" ]; then
+	echo "ERROR - CASROOT not defined - set or input as argument!"
+	exit
+fi
+
+#
+# is CASROOT pointing to a valid location?
+#
+if [ -d "$CASROOT" ]; then
+	echo "CASROOT =" $CASROOT " with contents:"
+	ls "$CASROOT"
+	echo 
+else
+	echo "ERROR - CASROOT does not point to a valid directory!"
+	exit
+fi
+
+#
+# look at the C/C++ Compiler to see if we are 32 or 64 bit
+#
+CARCH=UNKNOWN
+cl >& tmp
+read word0 word1 word2 word3 word4 word5 word6 word7 word8 < tmp
+rm tmp
+if [ "$word2" = 32-bit ]; then
+	CARCH=WIN32
+fi
+if [ "$word8" = x64 ]; then
+	CARCH=WIN64
+fi
+if [ "$CARCH" = UNKNOWN ]; then
+	echo "ERROR - Cannot get C/C++ Banner for Bit size!"
+	echo "       " $word0 $word1 $word2 $word3 $word4 $word5 $word6 $word7 $word8
+	exit
+elif [ "$CARCH" = WIN64 ]; then
+	ARCH=Win64
+	CCREV=$word6
+else
+	ARCH=Win32
+	CCREV=$word7
+fi
+MSVC=UNKNOWN
+case "$CCREV" in
+15.00*) MSVC=2008 ;;
+16.00*) MSVC=2010 ;;
+esac
+if [ "$MSVC" = UNKNOWN ]; then
+	echo "ERROR - Cannot Determine MS VC Revision $CCREV!"
+	exit
+fi
+
+#
+# determine CASARCH (if not aleardy set)
+#
+if [ -z "$CASARCH" ]; then
+	if [ -d "$CASROOT/$ARCH" ]; then
+		if [ -d "$CASROOT/$ARCH/lib" ]; then
+			CASARCH=$ARCH
+		else
+			ls "$CASROOT/$ARCH" >& tmp
+			read word0 word1 < tmp
+			rm tmp
+			CASARCH=$ARCH/$word0
+		fi
+	else
+		CASARCH=.
+	fi
+fi
+
+#
+# determine the OCC rev
+#
+if [ -z "$CASREV" ]; then
+	incfl=UNKNOWN
+	if [ -f "$CASROOT/include/Standard_Version.hxx" ]; then
+		incfl=$CASROOT/include/Standard_Version.hxx
+	elif [ -f "$CASROOT/inc/Standard_Version.hxx" ]; then
+		incfl=$CASROOT/inc/Standard_Version.hxx
+	elif [ -f "$CASROOT/include/oce/Standard_Version.hxx" ]; then
+		incfl=$CASROOT/include/oce/Standard_Version.hxx
+	elif [ -f "$CASROOT/Standard_Version.hxx" ]; then
+		incfl=$CASROOT/Standard_Version.hxx
+	fi
+	if [ "$incfl" = UNKNOWN ]; then
+		echo "ERROR - Cannot find OpenCASCADE Version include!"
+		exit
+	fi
+	exec < "$incfl"
+	while read word0 word1 word2
+	do
+		if [ "$word1" = OCC_VERSION ]; then
+			CASREV=$word2
+		fi
+	done
+	if [ -z "$CASREV" ]; then
+		echo "ERROR - Cannot parse OpenCASCADE Version!"
+		exit
+	fi
+fi
+
+#
+# done.
+#
+BASE=`pwd | sed -e 'sx/configxx'`
+echo "CARCH   =" $CARCH
+echo "CASROOT =" $CASROOT
+echo "CASARCH =" $CASARCH
+echo "CASREV  =" $CASREV
+echo "MSVC    =" $MSVC
+ 
+echo "#"                                                    > tmp
+echo "set MSVC="$MSVC                                      >> tmp
+echo "set GEM_ARCH="$CARCH                                 >> tmp
+echo "set GEM_ROOT="$BASE                                  >> tmp
+echo "set CASROOT="$CASROOT                                >> tmp
+echo "set CASARCH="$CASARCH                                >> tmp
+echo "set CASREV="$CASREV                                  >> tmp
+echo "set PATH="$CASROOT/$CASARCH/bin";"$BASE/lib";%PATH%" >> tmp
+sed sx/x'\\'xg < tmp > ../GEMenv.bat
+rm tmp
+exit

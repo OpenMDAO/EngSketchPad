@@ -1,0 +1,130 @@
+			OpenCSM Extended Primitive Declaration
+			======================================
+
+Programmer defined Primitives that generate body objects in OpenCSM are defined
+by external code that is dynamically loaded (and therefore defined) at runtime. 
+This requires a number of things to be specified within the loaded code and 
+this document defines how this is communicated to OpenCSM. These functional 
+attributes are:
+
+1) The internal name of the Primitive matches the so/DLL filename.
+
+2) A list of the number of "arguments" expected to be defined and filled to 
+execute the Primitive. The list of "arguments" are defined by:
+	"name" the unique name for the argument
+	argument type: 1 - integer, 2 - double, 3 - character string,
+				    4 - double with sensitivities
+	default value (character string has none).
+
+3) Execute and return an EGADS body object on success. A NULL object is the 
+indication of an Error. Note that all Faces in the Object should be marked with
+2 EGADS string attributes:
+	"PrimitiveType" assigned to "primName"
+	"PrimitiveDesc" assigned to something descriptive
+
+4) Code that returns a character string upon execution error.
+
+5) Optional functions to return an OverSet grid "attached" to the body and to
+provide sensitivities. If the argument type is 2 then the user code should
+respond with a step size for finite differencing. If it is 4 then this package
+responds by returning the sensitivities directly.
+
+
+
+API:
+----
+
+/* initialize & get info about the list of arguments */
+int udp_initialize(char   *primName,
+                   int    *nArgs,
+                   char   **name[],
+                   int    *type[], 
+                   int    *idefault[],
+                   double *ddefault[]);
+
+/* set the argument list back to default */
+int udp_clrArguments(char *primName);
+
+/* set an argument -- characters are converted based on type */
+int udp_setArgument(char *primName,
+                    char *name,
+                    char *value);
+
+/* execute */
+int udp_executePrim(char *primName,
+                    ego  context,
+                    ego  *body,      destroy by EG_deleteObject if not NULL
+                    int  *nMesh,     =0 for no 3D meshed
+                    char **string)   freeable if not NULL
+
+/* return the OverSet Mesh */
+int udp_getMesh(char *primName,
+                ego body,
+                int iMesh,           bias-1
+                int *imax,
+                int *jmax, 
+                int *kmax,
+                double **mesh);      freeable
+
+/* return sensitivity derivatives for the "real" argument */
+int udp_sensitivity(char   *primName,
+                    ego    body,
+                    char   *vname,
+                    int    npts, 
+                    int    *fIndices,
+                    double *uvs,
+                    double *dxdname);
+
+/* return sensitivity step-size of finite differencing */
+int udp_stepSize(char   *primName,
+                 ego    body,
+                 char   *vname,
+                 double *delta);
+
+/* unload and cleanup for all */
+void udp_cleanupAll()
+
+
+The User Defined (Loadable) Code:
+---------------------------------
+
+All primitives must have declared the 5 functions listed below (with the
+exact named entry-points).
+
+The user defined code must use EGADS functions to allocate memory 
+returned by the functions denoted by "^" (note that these need to be freed "up
+the chain" by EG_free):
+
+int udpInitialize(int    *nArgs,
+                  char   ***name^,
+                  int    **type^,
+                  int    **idefault^, 
+                  double **ddefault^)
+
+int udpReset(int flag)
+
+int udpSet(char *name,
+           char *value)
+
+int udpExecute(ego  context,
+               ego  *body,
+               int  *nMesh,
+               char **string^)
+
+int udpMesh(ego    body,
+            int    iMesh,
+            int    *imax,
+            int    *jmax,
+            int    *kmax, 
+            double **mesh^)
+
+int udpSensitivity(ego    body,
+                   char   *vname,
+                   int    npts,
+                   int    *fIndices,
+                   double *uvs,
+                   double *dxdname)
+
+int udpStepSize(ego    body,
+                char   *vname,
+                double *delta)

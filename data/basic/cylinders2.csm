@@ -1,0 +1,16 @@
+# cylinders2
+# written by John Dannenhoffer
+
+cylinder        0.00     -5.00      0.00      0.00      5.00      0.00      2.00
+
+cylinder        0.00      0.00      0.00      0.00      0.00     20.00      1.00
+rotatey        90.00      0.00      0.00
+union
+
+cylinder        0.00     -2.50      0.00      0.00      2.50      0.00      2.00
+scale           2.00
+translate      20.00      0.00      0.00
+rotatex       -90.00      0.00      0.00
+union
+
+end

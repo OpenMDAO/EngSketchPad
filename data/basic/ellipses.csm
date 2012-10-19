@@ -1,0 +1,22 @@
+# ellipses
+# written by John Dannenhoffer
+
+udprim ellipse    rx       3.0        ry       1.0
+translate        5.0       0.0        0.0
+
+udprim ellipse    rx       1.0        ry       3.0
+translate        0.0      -5.0        0.0
+
+udprim ellipse    ry       3.0        rz       1.0
+translate        0.0       5.0        0.0
+
+udprim ellipse    ry       1.0        rz       3.0
+translate        0.0       0.0       -5.0
+
+udprim ellipse    rz       3.0        rx       1.0
+translate        0.0       0.0        5.0
+
+udprim ellipse    rz       1.0        rx       3.0
+translate       -5.0       0.0        0.0
+
+end

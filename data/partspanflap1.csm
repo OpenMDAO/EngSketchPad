@@ -1,0 +1,197 @@
+# partspanflap1 (removable slots and supports)
+# written by John Dannenhoffer
+
+# default design parameters
+despmtr   zmax      5.00                          semispan
+despmtr   zinner    2.50                          inner extent of flap
+despmtr   zouter    4.50                          outer extent of flap
+
+despmtr   xpivot    0.80                          x-locn of flap pivot
+despmtr   ypivot    0.00                          y-locn of flap pivot
+despmtr   r1        0.03                          radius of cut on flap
+despmtr   r2        0.04                          radius of cut on main airfoil
+
+despmtr   dz        0.03                          z-thickness of support
+despmtr   r3        0.05                          radius of support
+
+# internal parameters driven by design parameters
+set       gap       r2-r1                         gap thickness
+set       z1        0.8*zinner+0.2*zouter         z-locn of first  support
+set       z2        0.5*zinner+0.5*zouter         z-locn of second support
+set       z3        0.2*zinner+0.8*zouter         z-locn of third  support
+
+# wing and flap (naca0012 airfoil, clipped at about 99.5% chord)
+
+skbeg     0.99459  -0.00077   0
+   spline 0.99039  -0.00135   0
+   spline 0.98502  -0.00211   0
+   spline 0.97847  -0.00301   0
+   spline 0.97077  -0.00407   0
+   spline 0.96194  -0.00527   0
+   spline 0.95200  -0.00661   0
+   spline 0.94096  -0.00808   0
+   spline 0.92886  -0.00966   0
+   spline 0.91574  -0.01136   0
+   spline 0.90160  -0.01315   0
+   spline 0.88651  -0.01503   0
+   spline 0.87048  -0.01700   0
+   spline 0.85355  -0.01903   0
+   spline 0.83578  -0.02113   0
+   spline 0.81720  -0.02327   0
+   spline 0.79785  -0.02545   0
+   spline 0.77779  -0.02766   0
+   spline 0.75705  -0.02989   0
+   spline 0.73570  -0.03212   0
+   spline 0.71378  -0.03434   0
+   spline 0.69134  -0.03655   0
+   spline 0.66844  -0.03874   0
+   spline 0.64514  -0.04088   0
+   spline 0.62149  -0.04297   0
+   spline 0.59755  -0.04499   0
+   spline 0.57336  -0.04694   0
+   spline 0.54901  -0.04880   0
+   spline 0.52453  -0.05055   0
+   spline 0.50000  -0.05219   0
+   spline 0.47547  -0.05370   0
+   spline 0.45099  -0.05505   0
+   spline 0.42663  -0.05626   0
+   spline 0.40246  -0.05729   0
+   spline 0.37851  -0.05813   0
+   spline 0.35486  -0.05878   0
+   spline 0.33156  -0.05923   0
+   spline 0.30866  -0.05946   0
+   spline 0.28622  -0.05946   0
+   spline 0.26430  -0.05923   0
+   spline 0.24295  -0.05876   0
+   spline 0.22221  -0.05804   0
+   spline 0.20215  -0.05709   0
+   spline 0.18280  -0.05588   0
+   spline 0.16422  -0.05444   0
+   spline 0.14645  -0.05275   0
+   spline 0.12952  -0.05082   0
+   spline 0.11349  -0.04867   0
+   spline 0.09840  -0.04629   0
+   spline 0.08427  -0.04370   0
+   spline 0.07114  -0.04091   0
+   spline 0.05904  -0.03792   0
+   spline 0.04800  -0.03476   0
+   spline 0.03806  -0.03142   0
+   spline 0.02923  -0.02793   0
+   spline 0.02153  -0.02430   0
+   spline 0.01498  -0.02053   0
+   spline 0.00961  -0.01664   0
+   spline 0.00541  -0.01263   0
+   spline 0.00241  -0.00852   0
+   spline 0.00060  -0.00431   0
+   spline 0.00000   0.00000   0
+linseg    0.00000   0.00000   0
+   spline 0.00060   0.00431   0
+   spline 0.00241   0.00852   0
+   spline 0.00541   0.01263   0
+   spline 0.00961   0.01664   0
+   spline 0.01498   0.02053   0
+   spline 0.02153   0.02430   0
+   spline 0.02923   0.02793   0
+   spline 0.03806   0.03142   0
+   spline 0.04800   0.03476   0
+   spline 0.05904   0.03792   0
+   spline 0.07114   0.04091   0
+   spline 0.08427   0.04370   0
+   spline 0.09840   0.04629   0
+   spline 0.11349   0.04867   0
+   spline 0.12952   0.05082   0
+   spline 0.14645   0.05275   0
+   spline 0.16422   0.05444   0
+   spline 0.18280   0.05588   0
+   spline 0.20215   0.05709   0
+   spline 0.22221   0.05804   0
+   spline 0.24295   0.05876   0
+   spline 0.26430   0.05923   0
+   spline 0.28622   0.05946   0
+   spline 0.30866   0.05946   0
+   spline 0.33156   0.05923   0
+   spline 0.35486   0.05878   0
+   spline 0.37851   0.05813   0
+   spline 0.40246   0.05729   0
+   spline 0.42663   0.05626   0
+   spline 0.45099   0.05505   0
+   spline 0.47547   0.05370   0
+   spline 0.50000   0.05219   0
+   spline 0.52453   0.05055   0
+   spline 0.54901   0.04880   0
+   spline 0.57336   0.04694   0
+   spline 0.59755   0.04499   0
+   spline 0.62149   0.04297   0
+   spline 0.64514   0.04088   0
+   spline 0.66844   0.03874   0
+   spline 0.69134   0.03655   0
+   spline 0.71378   0.03434   0
+   spline 0.73570   0.03212   0
+   spline 0.75705   0.02989   0
+   spline 0.77779   0.02766   0
+   spline 0.79785   0.02545   0
+   spline 0.81720   0.02327   0
+   spline 0.83578   0.02113   0
+   spline 0.85355   0.01903   0
+   spline 0.87048   0.01700   0
+   spline 0.88651   0.01503   0
+   spline 0.90160   0.01315   0
+   spline 0.91574   0.01136   0
+   spline 0.92886   0.00966   0
+   spline 0.94096   0.00808   0
+   spline 0.95200   0.00661   0
+   spline 0.96194   0.00527   0
+   spline 0.97077   0.00407   0
+   spline 0.97847   0.00301   0
+   spline 0.98502   0.00211   0
+   spline 0.99039   0.00135   0
+   spline 0.99459   0.00077   0
+   linseg 0.99459  -0.00077   0
+skend
+
+extrude   0         0         zmax
+
+# slot cutter (at LE of flap)
+
+skbeg     xpivot    ypivot+r2 zinner
+   cirarc xpivot-r2 ypivot    zinner    xpivot    ypivot-r2 zinner
+   linseg xpivot    ypivot-r1 zinner
+   cirarc xpivot-r1 ypivot    zinner    xpivot    ypivot+r1 zinner
+   linseg xpivot    ypivot+r2 zinner
+skend
+
+extrude   0         0         zouter-zinner
+subtract
+
+# support cylinders
+
+cylinder  xpivot    ypivot    z1-dz/2   xpivot    ypivot    z1+dz/2   r3
+union
+
+cylinder  xpivot    ypivot    z2-dz/2   xpivot    ypivot    z2+dz/2   r3
+union
+
+cylinder  xpivot    ypivot    z3-dz/2   xpivot    ypivot    z3+dz/2   r3
+union
+
+# cutters for ends of flap
+
+skbeg     1.01      ypivot+r2 zinner-gap/2
+   linseg xpivot    ypivot+r2 zinner-gap/2
+   cirarc xpivot-r2 ypivot    zinner-gap/2    xpivot    ypivot-r2 zinner-gap/2
+   linseg 1.01      ypivot-r2 zinner-gap/2
+   linseg 1.01      ypivot+r2 zinner-gap/2
+skend
+extrude   0         0         gap
+subtract
+
+skbeg     1.01      ypivot+r2 zouter-gap/2
+   linseg xpivot    ypivot+r2 zouter-gap/2
+   cirarc xpivot-r2 ypivot    zouter-gap/2    xpivot    ypivot-r2 zouter-gap/2
+   linseg 1.01      ypivot-r2 zouter-gap/2
+   linseg 1.01      ypivot+r2 zouter-gap/2
+skend
+extrude   0         0         gap
+subtract
+
+end

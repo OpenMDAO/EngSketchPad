@@ -1,0 +1,65 @@
+# cutter1
+# written by John Dannenhoffer
+
+# OML
+sphere    2.0       1.5      -4.6       5.5
+attribute upper_    0
+sphere    2.0       1.5       4.6       5.5
+attribute lower_    0
+intersect
+cylinder  2.0       1.5      -4.0       2.0       1.5         4.0       3.0
+attribute rim_      0
+intersect
+dump      cutter.egads
+
+# cutter
+box       0.0       0.0      -2.0       4.0       3.0         4.0
+attribute outer_    0
+box       0.1       0.1      -2.0       3.8       2.8         4.0
+attribute inner_    0
+subtract
+
+skbeg     0.05      1.95     -2.0
+   linseg 6.00      1.95     -2.0
+   linseg 6.00      2.05     -2.0
+   linseg 0.05      2.05     -2.0
+   linseg 0.05      1.95     -2.0
+skend
+extrude   0.0       0.0       4.0
+attribute rib_      1
+union
+
+skbeg     2.05      1.00     -2.0
+   linseg 2.05      2.95     -2.0
+   linseg 1.95      2.95     -2.0
+   linseg 1.95      1.00     -2.0
+   linseg 2.05      1.00     -2.0
+skend
+extrude   0.0       0.0       4.0
+attribute rib_      2
+union
+
+skbeg     0.05      0.01     -2.0
+   linseg 2.05      1.00     -2.0
+   linseg 1.95      1.05     -2.0
+   linseg 0.01      0.08     -2.0
+   linseg 0.05      0.01     -2.0
+skend
+extrude   0.0       0.0       4.0
+attribute rib_      3
+union
+
+skbeg     3.95      0.01     -2.0
+   linseg 1.95      1.00     -2.0
+   linseg 2.05      1.05     -2.0
+   linseg 3.99      0.08     -2.0
+   linseg 3.95      0.01     -2.0
+skend
+extrude   0.0       0.0       4.0
+attribute rib_      4
+union
+
+# combine utter and OML
+intersect
+
+end

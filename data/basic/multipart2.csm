@@ -1,0 +1,37 @@
+# multipart2
+# written by John Dannenhoffer
+
+# cutter (store in 1)
+macbeg 1
+   skbeg       9  -2   0
+      linseg   9   1   0
+      linseg   8  -1   0
+      linseg   6  -1   0
+      linseg   5   1   0
+      linseg   4  -1   0
+      linseg   2  -1   0
+      linseg   1   1   0
+      linseg   1  -2   0
+      linseg   9  -2   0
+   skend
+   extrude     0   0   3
+macend
+
+# rod (store in 2)
+macbeg 2
+   cylinder    0   0  1.5  10   0   1.5  0.4
+macend
+
+# thread
+cylinder   -1   0  1.5  11   0   1.5  0.1
+
+# three beads
+patbeg ibead 4
+   recall 2
+   recall 1
+   subtract xmin ibead
+   union
+patend
+
+end
+

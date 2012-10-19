@@ -1,0 +1,28 @@
+# posts1
+# written by John Dannenhoffer
+
+box       -1        -.5       -1        2         1         2
+
+macbeg 1
+   cylinder   0        0         0         0         1         0         .1
+   sphere     0        1         0         .2
+   union
+macend
+
+recall     1
+translate -.75      0         0
+union
+
+recall     1
+translate -.25      0         0
+union
+
+recall     1
+translate +.25      0         0
+union
+
+recall     1
+translate +.75      0         0
+union
+
+end

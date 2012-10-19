@@ -1,0 +1,15 @@
+# hingex
+# written by John Dannenhoffer
+
+box            -1.00      -.10      0.00      2.00      0.20      0.90
+
+cylinder        -.10      0.00      1.00      0.10      0.00      1.00      0.25
+union
+fillet          0.03
+
+box            -1.00      -.10      1.10      2.00      0.20      0.90
+rotatex        30.00      0.00      1.00
+union
+fillet          0.03
+
+end

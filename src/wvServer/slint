@@ -1,0 +1,2 @@
+#
+lint server.c wv.c fwv.c -I../include -I. -DSTANDALONE -boolops -exitarg -fullinitblock -nullpass -mayaliasunique +charint -exportlocal -evalorder

@@ -1,0 +1,119 @@
+# wingbody
+# written by John Dannenhoffer
+
+# default design parameters
+despmtr   len        8.0      fuselage length
+despmtr   rad        0.5      fuselage radius
+
+despmtr   span       6.0      wing span
+despmtr   sweep     30.0      sweep angle (deg)
+despmtr   xroot      2.5      x-locn of wing root
+despmtr   yroot      -.2      y-locn of wing root
+
+# fuselage
+
+set       x1        rad*(1-sqrt(.5))
+set       y1        rad*sqrt(.5)
+
+skbeg     len       0         0
+   linseg len       rad/4     0
+   spline len-1     rad/4     0
+   spline len/2     rad       0
+   spline rad       rad       0
+   cirarc x1        y1        0         0         0         0
+   linseg len       0         0
+skend
+revolve   0         0         0         1         0         0         180
+
+# main airfoil (nlr7301)
+
+skbeg     0.94360   0.01499   0
+   linseg 0.92878   0.01645   0
+   spline 0.91047   0.01807   0
+   spline 0.88524   0.01818   0
+   spline 0.85349   0.01472   0
+   spline 0.81572   0.00585   0
+   spline 0.77253   -.00824   0
+   spline 0.72459   -.02362   0
+   spline 0.67267   -.03750   0
+   spline 0.61758   -.04921   0
+   spline 0.56019   -.05959   0
+   spline 0.50141   -.06819   0
+   spline 0.44216   -.07385   0
+   spline 0.38337   -.07652   0
+   spline 0.32598   -.07704   0
+   spline 0.27089   -.07585   0
+   spline 0.21897   -.07317   0
+   spline 0.17103   -.06917   0
+   spline 0.12784   -.06402   0
+   spline 0.09007   -.05791   0
+   spline 0.05832   -.05073   0
+   spline 0.03310   -.04215   0
+   spline 0.01479   -.03158   0
+   spline 0.00368   -.01804   0
+   spline -.00004   -.00080   0
+   linseg -.00004   -.00080   0
+   spline 0.00368   0.02064   0
+   spline 0.01479   0.03978   0
+   spline 0.03309   0.05268   0
+   spline 0.05832   0.06137   0
+   spline 0.09007   0.06807   0
+   spline 0.12784   0.07381   0
+   spline 0.17103   0.07874   0
+   spline 0.21897   0.08276   0
+   spline 0.27089   0.08577   0
+   spline 0.32598   0.08768   0
+   spline 0.38337   0.08838   0
+   spline 0.44216   0.08781   0
+   spline 0.50141   0.08590   0
+   spline 0.56019   0.08248   0
+   spline 0.61758   0.07737   0
+   spline 0.67267   0.07038   0
+   spline 0.72459   0.06191   0
+   spline 0.77253   0.05273   0
+   spline 0.81572   0.04368   0
+   spline 0.85349   0.03536   0
+   spline 0.88524   0.02819   0
+   spline 0.91047   0.02241   0
+   spline 0.92878   0.01830   0
+   linseg 0.94360   0.01499   0
+skend
+
+set       dxtip     (span/2)*sind(sweep)
+set       dztip     (span/2)*cosd(sweep)
+
+extrude   dxtip     0         dztip
+translate xroot     yroot     0.00100
+union
+
+# flap (nlr7301)
+
+skbeg     1.20883   -.10828   0
+   linseg 1.18335   -.09656   0
+   spline 1.13262   -.07703   0
+   spline 1.07894   -.06187   0
+   spline 1.03951   -.05343   0
+   spline 1.00016   -.04661   0
+   spline  .96358   -.04124   0
+   spline  .93239   -.03704   0
+   spline  .90842   -.03389   0
+   spline  .89357   -.03162   0
+   spline  .89060   -.02509   0
+   linseg  .89060   -.02509   0
+   spline  .89862   -.01773   0
+   spline  .91582   -.01356   0
+   spline  .94142   -.01198   0
+   spline  .97355   -.01384   0
+   spline 1.00982   -.02008   0
+   spline 1.04794   -.03027   0
+   spline 1.08568   -.04337   0
+   spline 1.13669   -.06585   0
+   spline 1.18479   -.09263   0
+   linseg 1.20883   -.10828   0
+skend
+
+extrude   dxtip     0         dztip
+translate xroot     yroot     0.00100
+union
+
+end

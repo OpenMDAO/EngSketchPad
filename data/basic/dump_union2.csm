@@ -1,0 +1,18 @@
+# dump_union2
+# written by John Dannenhoffer
+
+box            -1.00     -1.00     -1.00      2.00      2.00      2.00
+dump       ./dump_1.egads
+
+cylinder        0.90      0.00      0.00      0.90      2.00      0.00      0.50
+dump       ./dump_2.egads
+
+union
+
+sphere         -1.10     -0.75      0.90      1.00
+dump       ./dump_3.egads
+
+union
+dump       ./dump_4.STEP
+
+end

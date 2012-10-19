@@ -1,0 +1,12 @@
+# pin
+# written by John Dannenhoffer
+
+# pin
+cylinder        0.00      -.20      0.00      0.00      0.10      0.00      0.09
+
+# plate with hole
+box            -1.00      -.10     -1.00      2.00      0.20      2.00
+cylinder        0.00      -.10      0.00      0.00      0.10      0.00      0.10
+subtract
+
+end

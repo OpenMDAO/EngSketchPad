@@ -1,0 +1,10 @@
+# extrude0
+# written by John Dannenhoffer
+
+skbeg         -1.0000    0.0000    0.0000
+   cirarc      0.0000   -1.0000    0.0000    1.0000    0.0000    0.0000
+   cirarc      0.0000    1.0000    0.0000   -1.0000    0.0000    0.0000
+skend
+extrude        0.0000    0.0000    5.0000
+
+end

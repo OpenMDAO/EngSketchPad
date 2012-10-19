@@ -1,0 +1,54 @@
+#
+!include ..\include\$(GEM_ARCH).$(MSVC)
+IDIR   = ..\include
+LDIR   = $(GEM_ROOT)\lib
+
+OBJSP = egadsGeom.obj egadsHLevel.obj egadsTopo.obj  egadsCopy.obj egadsIO.obj
+OBJS  = egadsBase.obj egadsMemory.obj egadsAttrs.obj egadsTess.obj \
+        egadsTris.obj egadsQuads.obj
+FOBJS = fgadsBase.obj fgadsMemory.obj fgadsAttrs.obj fgadsTess.obj \
+        fgadsGeom.obj fgadsHLevel.obj fgadsTopo.obj 
+
+default:	$(LDIR)\egads.dll $(LDIR)\egadstatic.lib $(LDIR)\fgads.lib
+
+$(LDIR)\egadstatic.lib:	$(OBJSP) $(OBJS)
+	-del $(LDIR)\egadstatic.lib
+	lib /out:$(LDIR)\egadstatic.lib $(OBJS) $(OBJSP)
+
+$(LDIR)\egads.dll:	$(OBJSP) $(OBJS) egads.res
+	-del $(LDIR)\egads.dll $(LDIR)\egads.lib $(LDIR)\egads.exp
+	link /out:$(LDIR)\egads.dll /dll /def:egads.def $(OBJSP) $(OBJS) \
+		egads.res $(LNKPTH) $(LIBS)
+	$(MCOMP) /manifest $(LDIR)\egads.dll.manifest \
+		/outputresource:$(LDIR)\egads.dll;2
+
+$(LDIR)\fgads.lib:	$(FOBJS)
+	-del $(LDIR)\fgads.lib
+	lib /out:$(LDIR)\fgads.lib $(FOBJS)
+
+egads.res:	egads.rc
+	rc egads
+
+$(OBJS):	$(IDIR)\egadsErrors.h egadsInternals.h \
+		$(IDIR)\egadsTypes.h egadsTris.h
+.c.obj:
+	cl /c $(COPTS) $(DEFINE) /I. /I$(IDIR) $<
+
+$(FOBJS):	$(IDIR)\egadsErrors.h egadsInternals.h \
+		$(IDIR)\egadsTypes.h
+.c.obj:
+	cl /c $(COPTS) $(DEFINE) /I. /I$(IDIR) $<
+
+$(OBJSP):	$(IDIR)\egadsErrors.h egadsOCC.h egadsInternals.h \
+		$(IDIR)\egadsTypes.h egadsClasses.h
+.cpp.obj:
+	cl /c $(CPPOPT) $(DEFINE) $(INCS) /I. /I$(IDIR) $<
+
+clean:
+	-del $(FOBJS) $(OBJSP) $(OBJS)
+
+cleanall:
+	-del $(LDIR)\egads.dll $(LDIR)\egads.lib $(LDIR)\egads.exp
+	-del $(LDIR)\egads.res $(LDIR)\egads.dll.manifest
+	-del $(LDIR)\egadstatic.lib $(LDIR)\fgads.lib
+	-del $(FOBJS) $(OBJSP) $(OBJS)

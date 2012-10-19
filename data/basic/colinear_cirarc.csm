@@ -1,0 +1,11 @@
+# colinear_cirarc
+# written by John Dannenhoffer
+
+skbeg     0.0  0.0  0.0
+   cirarc 0.5  0.5  0.0  1.0  1.0  0.0
+   cirarc 1.5  1.5  0.0  2.0  1.0  0.0
+   cirarc 2.5  0.5  0.0  3.0  0.0  0.0
+   cirarc 1.5 -0.5  0.0  0.0  0.0  0.0
+skend
+
+end

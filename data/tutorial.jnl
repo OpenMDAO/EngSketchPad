@@ -1,0 +1,33 @@
+?
+l
+e Lbar 9
+B
+e Lbar 6.00
+A  2 1 0 0 2
+B
+A 33
+B
+z
+L
+D
+A 31 none 1
+B
+e Rbar 0.40
+B
+A  4 -1.1*L 0 0 +1.1*L 0 0 0.2
+A 32 none 1
+B
+a Rhole 1 1 0.08
+A 55 i 7
+A  4 i/3 0 -1 i/3 0 +1 Rhole
+A 32 none 1
+A 56
+B
+L
+X 2
+L
+A 42 -15*(i-1) 0 0
+V
+B
+W ../data/tutorial_new.csm
+$

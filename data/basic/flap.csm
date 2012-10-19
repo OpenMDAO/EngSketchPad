@@ -1,0 +1,33 @@
+# flap
+# written by John Dannenhoffer
+
+despmtr   chord    1.00
+despmtr   span     5.00
+despmtr   thick    0.10
+despmtr   rle      0.10
+despmtr   tethick  0.02
+despmtr   extend   0.10
+despmtr   pctgap   0.75
+despmtr   gap      0.05
+despmtr   delta    -15.
+
+set       x0       pctgap*chord
+set       x1       x0-gap/2
+set       x2       x0+gap/2
+set       z1       -span/2-extend
+set       z2       +span/2+extend
+
+box       0.00     -thick/2  -span/2   x1        thick     span
+cylinder  0.00     0.00      z1        0.00      0.00      z2        rle
+union
+
+skbeg     x2       -thick/2  -span/2
+   linseg chord    -tethick  -span/2
+   linseg chord    +tethick  -span/2
+   linseg x2       +thick/2  -span/2
+   linseg x2       -thick/2  -span/2
+skend
+extrude   0.00     0.00      span
+rotatez   delta    x0        0.00
+
+end

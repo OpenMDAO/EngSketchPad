@@ -1,0 +1,19 @@
+# pattern2b
+# written by John Dannenhoffer
+
+despmtr         nx  3
+despmtr         ny  2
+
+box             0.00      0.00     -0.10      nx+1      ny+1      0.20
+
+patbeg ix nx
+   patbeg iy ny
+      cylinder        0.00      0.00     -0.20      0.00      0.00      0.20      0.30
+      box             -.20      -.50     -0.20      0.40      1.00      0.40
+      intersect
+      translate       ix        iy        0.00
+      subtract
+   patend
+patend
+
+end

@@ -1,0 +1,17 @@
+# pattern1e
+# written by John Dannenhoffer
+
+despmtr         nx  2
+despmtr         ny  3
+
+box             0.00      0.00     -1.00      nx+1      ny+1      2.00
+
+patbeg ix nx
+   patbeg iy ny
+      cylinder  ix        iy       -2.00      ix        iy        2.00      0.40
+      attribute hole      ix+iy/10
+      subtract
+   patend
+patend
+
+end

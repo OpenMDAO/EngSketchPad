@@ -1,0 +1,97 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "~//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<!--
+// dialog for editing a Branch
+// written by John Dannenhoffer
+-->
+
+<html>
+   <head>
+     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <title>
+        Edit Branch
+      </title>
+
+      <script type="text/javascript" src="ESP-editBrch.js"> </script>
+      <style type="text/css">
+        /* table data entries */
+        td {
+            padding-left:         5px;
+            padding-right:        5px;
+            padding-top:          0px;
+            padding-bottom:       0px;
+        }
+
+        /* input fields */
+        input {
+            width:              300px;
+        }
+      </style>
+   </head>
+
+   <body onload="initEditBrch()">
+     <form name="editBrchForm" onsubmit="return false">
+       <table>
+         <tr id="type">
+           <td>Type:</td>
+           <td          id="brchType">-----</td>
+         </tr>
+         <tr id="name">
+           <td>Name:</td>
+           <td><input name="brchName" type="text" value=""/></td>
+         </tr>
+         <tr id="activity">
+           <td>Activity:</td>
+           <td><select name="activity">
+               <option value="active"    >Active    </option>
+               <option value="suppressed">Suppressed</option>
+             </select></td>
+         </tr>
+         <tr>
+           <td          id="argName1">Name1:</td>
+           <td><input name="argValu1" type="text" value=""/></td>
+         </tr>
+         <tr>
+           <td          id="argName2">Name2:</td>
+           <td><input name="argValu2" type="text" value=""/></td>
+         </tr>
+         <tr>
+           <td          id="argName3">Name3:</td>
+           <td><input name="argValu3" type="text" value=""/></td>
+         </tr>
+         <tr>
+           <td          id="argName4">Name4:</td>
+           <td><input name="argValu4" type="text" value=""/></td>
+         </tr>
+         <tr>
+           <td          id="argName5">Name5:</td>
+           <td><input name="argValu5" type="text" value=""/></td>
+         </tr>
+         <tr>
+           <td          id="argName6">Name6:</td>
+           <td><input name="argValu6" type="text" value=""/></td>
+         </tr>
+         <tr>
+           <td          id="argName7">Name7:</td>
+           <td><input name="argValu7" type="text" value=""/></td>
+         </tr>
+         <tr>
+           <td          id="argName8">Name8:</td>
+           <td><input name="argValu8" type="text" value=""/></td>
+         </tr>
+         <tr>
+           <td          id="argName9">Name9:</td>
+           <td><input name="argValu9" type="text" value=""/></td>
+         </tr>
+       </table>
+     </form>
+
+     <div style="position:absolute; left:200px">
+       <button style="width:80px" onclick="handleCancel()">Cancel</button>
+       &nbsp;&nbsp;
+       <button style="width:80px" onclick="handleOK()">OK</button>
+     </div>
+   </body>
+</html>

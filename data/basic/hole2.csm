@@ -1,0 +1,60 @@
+# hole2  (square extrusion holes)
+# written by John Dannenhoffer
+
+box       -3   -3   -3    6    6    6
+
+skbeg      2   -1   -1
+   linseg  2    1   -1
+   linseg  2    1    1
+   linseg  2   -1    1
+   linseg  2   -1   -1
+skend
+extrude    2    0    0
+subtract
+
+skbeg     -4   -1   -1
+   linseg -4    1   -1
+   linseg -4    1    1
+   linseg -4   -1    1
+   linseg -4   -1   -1
+skend
+extrude    2    0    0
+subtract
+
+skbeg     -1    2   -1
+   linseg -1    2    1
+   linseg  1    2    1
+   linseg  1    2   -1
+   linseg -1    2   -1
+skend
+extrude    0    2    0
+subtract
+
+skbeg     -1   -4   -1
+   linseg -1   -4    1
+   linseg  1   -4    1
+   linseg  1   -4   -1
+   linseg -1   -4   -1
+skend
+extrude    0    2    0
+subtract
+
+skbeg     -1   -1    2
+   linseg  1   -1    2
+   linseg  1    1    2
+   linseg -1    1    2
+   linseg -1   -1    2
+skend
+extrude    0    0    2
+subtract
+
+skbeg     -1   -1   -4
+   linseg  1   -1   -4
+   linseg  1    1   -4
+   linseg -1    1   -4
+   linseg -1   -1   -4
+skend
+extrude    0    0    2
+subtract
+
+end

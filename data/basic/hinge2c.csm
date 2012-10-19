@@ -1,0 +1,32 @@
+# hinge2c
+# written by John Dannenhoffer
+
+despmtr   rotDeg    0
+despmtr   haveMain  1
+despmtr   haveFlap  1
+despmtr   haveUnion 0
+
+# main airfoil
+patbeg i haveMain
+   box       0.0   0.0   0.0   2.0   0.2   3.0
+   box       0.9   -.1   0.9   1.2   0.4   1.2
+   subtract
+   cylinder  1.2   0.1   0.8   1.2   0.1   2.2   0.05
+   subtract
+patend
+
+# flap
+patbeg i haveFlap
+   box       1.0   0.0   1.0   1.0   0.2   1.0
+   rotatez   -rotDeg     1.2   0.1
+   cylinder  1.2   0.1   0.8   1.2   0.1   2.2   0.05
+   union
+patend
+
+
+# union
+patbeg i haveUnion
+   union
+patend
+
+end

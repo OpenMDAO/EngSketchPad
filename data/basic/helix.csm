@@ -1,0 +1,32 @@
+# helix
+# written by John Dannenhoffer
+
+# default design parameters
+despmtr   hub       0.25      # hub radius
+despmtr   tip       1.00      # tip radius
+despmtr   thick     0.05      # blade thickness
+despmtr   pitch     4.00      # z-distance for one full twist
+despmtr   angle     720.      # total twist angle (deg)
+despmtr   step      10.0      # step size (deg)
+
+set       nsect     1+angle/step
+
+mark
+   patbeg i nsect
+      skbeg        hub  -thick/2  0
+         linseg    tip  -thick/2  0
+         linseg    tip   thick/2  0
+         linseg    hub   thick/2  0
+         linseg    hub  -thick/2  0
+      skend
+
+      set zz  i*(pitch/(nsect-1))
+      translate 0 0 zz
+
+      rotatez i*step 0 0
+   patend
+loft 1
+
+rotatex -90 0 0
+
+end

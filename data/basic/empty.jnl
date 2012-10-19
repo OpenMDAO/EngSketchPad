@@ -1,0 +1,13 @@
+a length 1 1 2.0
+a diam1  1 1 0.2
+a diam2  1 1 0.5
+
+A  4   -length/2  0  0  +length/2  0  0  diam1/2
+A  2   -length/2  0  0                   diam2/2
+A 33
+A  2   +length/2  0  0                   diam2/2
+A 33
+
+B
+z
+$

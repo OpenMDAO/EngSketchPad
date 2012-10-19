@@ -1,0 +1,11 @@
+# fighter2 (inspired by F16)
+# written by John Dannenhoffer
+
+import fighter_wingMSA.egads
+import fighter_htailMSA.egads
+import fighter_vtailMSA.egads
+import fighter_OML.egads
+#import fighter_SSM.egads
+import fighter_BEM.egads
+
+end

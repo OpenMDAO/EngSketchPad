@@ -1,0 +1,13 @@
+# rot30y
+# written by John Dannenhoffer
+
+box       -1.0      -1.0      -1.0       2.0       2.0       2.0
+
+box      -10.0      -0.5      -0.5      20.0       1.0       1.0
+union
+
+box      -10.0      -0.5      -0.5      20.0       1.0       1.0
+rotatey   30.0       0.0      10.0
+union
+
+end

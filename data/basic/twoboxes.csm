@@ -1,0 +1,12 @@
+# twoboxes
+# written by John Dannenhoffer
+
+box             0.00      2.00      3.00      2.00      5.00      6.00
+box             -.50      3.00      4.00      3.00      3.00      4.00
+subtract
+
+box             2.50      4.00      4.00      4.00      1.00      4.00
+box             3.50      3.00      5.50      4.00      3.00      1.00
+union
+
+end

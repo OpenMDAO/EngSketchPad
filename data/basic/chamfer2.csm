@@ -1,0 +1,32 @@
+# chamfer2
+# written by John Dannenhoffer
+
+# box with chamfers at ymin,ymax,zmin,zmax
+box            -1.00     -1.00     -1.00      2.00      2.00      2.00
+
+dimension      edgeList1 4 2 0
+set            edgeList1 "3; 5;   3; 6;   4; 5;   4; 6"
+chamfer          0.20      edgeList1
+
+# box with chamfers except at xmin
+box            -2.00     -0.50     -0.50      2.00      1.00      1.00
+
+dimension      edgeList2 2 2 0
+set            edgeList2 "0; 0;   -1; 0"
+chamfer          0.10      edgeList2
+
+subtract
+
+# cylinder with chamfers except at ymin
+cylinder        0.90      0.00      0.00      0.90      2.00      0.00      0.50
+
+dimension      edgeList3 3 2 0
+set            edgeList3 " 0; 0;   0; -1;   -1; 0"
+chamfer          0.05      edgeList3
+
+# in the union     
+union
+
+chamfer          0.24
+
+end

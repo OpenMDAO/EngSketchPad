@@ -1,0 +1,16 @@
+# extrude
+# written by John Dannenhoffer
+
+skbeg      0.00  0.00  1.00
+   linseg  3.00  0.00  1.00
+   cirarc  3.70  0.30  1.00   4.00  1.00  1.00
+   linseg  4.00  3.00  1.00
+   spline  3.90  3.00  1.00
+   spline  1.50  2.50  1.00
+   spline  0.00  0.20  1.00
+   spline  0.00  0.00  1.00
+skend
+
+extrude  0.00  0.0   5.00
+
+end

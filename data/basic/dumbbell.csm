@@ -1,0 +1,27 @@
+# dumbbell
+# written by John Dannenhoffer
+
+# default design parameters
+despmtr   Lbar      6.00      length of bar
+despmtr   Rbar      0.15      radius of bar
+despmtr   T         0.50      thickness of weights
+despmtr   D         2.00      diameter  of weights
+despmtr   Rout      1.20      outer radius (for intersection)
+despmtr   Rfil      0.10      fillet radius at end of bar
+
+set       L         Lbar/2
+
+cylinder  -L        0.0       0.0       +L        0.0       0.0       Rbar
+
+box       -L-T/2    -D/2      -D/2      T         D         D
+union
+fillet    Rfil
+
+box       +L-T/2    -D/2      -D/2      T         D         D
+union
+fillet    Rfil
+
+cylinder  -L-T      0.00      0.00      +L+T      0.00      0.00      Rout
+intersect
+
+end

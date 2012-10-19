@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "~//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<!--
+// dialog for adding a Branch
+// written by John Dannenhoffer
+-->
+
+<html>
+   <head>
+     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <title>
+        Add Branch
+      </title>
+
+      <script type="text/javascript" src="ESP-addBrch.js"> </script>
+      <style type="text/css">
+        /* input fields */
+        input {
+            width:               80px;
+        }
+      </style>
+   </head>
+
+   <body onload="initAddBrch()">
+     <form name="addBrchForm" onsubmit="return false">
+       Type of Branch to add:
+       <select name="brchType">
+         <option value="box"       >box       </option>
+         <option value="sphere"    >sphere    </option>
+         <option value="cone"      >cone      </option>
+         <option value="cylinder"  >cylinder  </option>
+         <option value="torus"     >torus     </option>
+         <option value="import"    >import    </option>
+         <option value="udprim"    >udprim    </option>
+         <option value="extrude"   >extrude   </option>
+         <option value="loft"      >loft      </option>
+         <option value="revolve"   >revolve   </option>
+         <option value="fillet"    >fillet    </option>
+         <option value="chamfer"   >chamfer   </option>
+         <option value="hollow"    >hollow    </option>
+         <option value="intersect" >intersect </option>
+         <option value="subtract"  >subtract  </option>
+         <option value="union"     >union     </option>
+         <option value="translate" >translate </option>
+         <option value="rotatex"   >rotatex   </option>
+         <option value="rotatey"   >rotatey   </option>
+         <option value="rotatez"   >rotatez   </option>
+         <option value="scale"     >scale     </option>
+         <option value="skbeg"     >skbeg     </option>
+         <option value="linseg"    >linseg    </option>
+         <option value="cirarc"    >cirarc    </option>
+         <option value="spline"    >spline    </option>
+         <option value="skend"     >skend     </option>
+         <option value="solbeg"    >solbeg    </option>
+         <option value="solcon"    >solcon    </option>
+         <option value="solend"    >solend    </option>
+         <option value="macbeg"    >macbeg    </option>
+         <option value="macend"    >macend    </option>
+         <option value="recall"    >recall    </option>
+         <option value="patbeg"    >patbeg    </option>
+         <option value="patend"    >patend    </option>
+         <option value="mark"      >mark      </option>
+         <option value="dump"      >dump      </option>
+         <option value="set"       >set       </option>
+       </select>
+     </form>
+     <div>
+       &nbsp;
+     </div>
+     <div style="position:absolute; left:100px">
+       <button style="width:80px" onclick="handleCancel()">Cancel</button>
+       &nbsp;&nbsp;
+       <button style="width:80px" onclick="handleOK()">OK</button>
+     </div>
+   </body>
+</html>

@@ -1,0 +1,34 @@
+# posts4
+# written by John Dannenhoffer
+
+box       -1        -.5       -1        2         1         2
+
+# make a post
+macbeg 1
+   cylinder   0        0         0         0         1         0         .1
+   sphere     0        1         0         .2
+   union
+macend
+
+# place 4 posts on the box
+recall     1
+translate  -.75     0         0
+union
+fillet     0.02
+
+recall     1
+translate  -.25     0         0
+union
+fillet     0.04
+
+recall     1
+translate  +.25     0         0
+union
+fillet     0.02
+
+recall     1
+translate  +.75     0         0
+union
+fillet     0.04
+
+end

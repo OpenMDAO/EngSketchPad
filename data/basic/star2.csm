@@ -1,0 +1,33 @@
+# star2
+# written by John Dannenhoffer
+
+box            -1.00     -2.00     -3.00      2.00      4.00      6.00
+
+# +x spoke
+cylinder        0.00      0.00      0.00      6.00      0.00      0.00      0.50
+union
+
+# +y spoke
+cylinder        0.00      0.00      0.00      0.00      6.00      0.00      0.50
+union
+
+# +z spoke
+cylinder        0.00      0.00      0.00      0.00      0.00      6.00      0.50
+union
+
+# -x spoke
+cylinder        0.00      0.00      0.00      6.00      0.00      0.00      0.25
+translate      -6.00      0.00      0.00
+union
+
+# -y spoke
+cylinder        0.00      0.00      0.00      0.00      6.00      0.00      0.25
+translate       0.00     -6.00      0.00
+union
+
+# -z spoke
+cylinder        0.00      0.00      0.00      0.00      0.00      6.00      0.25
+translate       0.00      0.00     -6.00
+union
+
+end

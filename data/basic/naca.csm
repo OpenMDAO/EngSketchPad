@@ -1,0 +1,7 @@
+# naca
+# written by John Dannenhoffer
+
+udprim  naca Series 4412
+extrude 0 0 3
+
+end

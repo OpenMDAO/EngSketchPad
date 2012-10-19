@@ -1,0 +1,12 @@
+#!/bin/tcsh -f
+
+echo "Running 'buildCSM $1' on all .csm files"
+echo " "
+
+foreach f (../data/basic/*.csm ../data/*.csm)
+   buildCSM $1 $f
+   echo "Finished running $f"
+   echo " "
+end
+
+echo "Complete"

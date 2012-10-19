@@ -1,0 +1,30 @@
+# pattern1a
+# written by John Dannenhoffer
+
+box             0.00      0.00     -1.00      3.00      4.00      2.00
+
+cylinder        1.00      1.00     -2.00      1.00      1.00      2.00      0.40
+attribute       hole      1.1
+subtract
+
+cylinder        1.00      2.00     -2.00      1.00      2.00      2.00      0.40
+attribute       hole      1.2
+subtract
+
+cylinder        1.00      3.00     -2.00      1.00      3.00      2.00      0.40
+attribute       hole      1.3
+subtract
+
+cylinder        2.00      1.00     -2.00      2.00      1.00      2.00      0.40
+attribute       hole      2.1
+subtract
+
+cylinder        2.00      2.00     -2.00      2.00      2.00      2.00      0.40
+attribute       hole      2.2
+subtract
+
+cylinder        2.00      3.00     -2.00      2.00      3.00      2.00      0.40
+attribute       hole      2.3
+subtract
+
+end

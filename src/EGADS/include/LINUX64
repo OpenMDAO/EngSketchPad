@@ -1,0 +1,30 @@
+#LINUX 64 bit:
+#
+
+INCS    = -I$(CASROOT)/inc -I$(CASROOT) -I../include
+LIBPATH = -L$(CASROOT)/$(CASARCH)/lib -L../../lib
+ifeq ($(CASREV),6.3)
+LIBS    = -lTKBool -lTKernel -lTKFeat -lTKBO -lTKGeomAlgo -lTKMath -lTKOffset -lTKPrim -lTKPShape -lTKTopAlgo -lTKBRep -lTKG2d -lTKG3d -lTKGeomBase -lTKShHealing -lTKSTEP -lTKXSBase -lTKIGES -lTKFillet
+endif
+ifeq ($(CASREV),6.5)
+LIBS    = -lTKBool -lTKernel -lTKFeat -lTKBO -lTKGeomAlgo -lTKMath -lTKOffset -lTKPrim -lTKPShape -lTKTopAlgo -lTKBRep -lTKG2d -lTKG3d -lTKGeomBase -lTKShHealing -lTKSTEP -lTKSTEP209 -lTKSTEPBase -lTKSTEPAttr -lTKXSBase -lTKIGES -lTKFillet -lPTKernel
+endif
+
+DEFINE = -DREVISION=$(CASREV)
+CC     = g++ -m64 -g
+ifeq ($(CASREV),6.3)
+CPPOPT = -O -DLIN -DLININTEL -DHAVE_IOSTREAM -DHAVE_IOSTREAM_H -DHAVE_LIMITS_H -fPIC -Wno-write-strings -Wno-unused-result -D_OCC64
+endif
+ifeq ($(CASREV),6.5)
+CPPOPT = -O -DLIN -DLININTEL -DCSFDB -DOCC_CONVERT_SIGNALS -D_GNU_SOURCE=1 -fPIC -D_OCC64 -DNDEBUG -DNo_Exception -DHAVE_CONFIG_H -Wno-write-strings
+endif
+CCOMP  = gcc -m64 -g
+COPTS  = -O -fno-unit-at-a-time -fPIC
+FCOMP  = gfortran -m64 -g
+FOPTS  = -O -frecursive -fcray-pointer
+#FCOMP = ifort -m64 -g
+#FOPTS = -O -recursive
+LOPTS  = rs
+RANLB  =
+SHLIB  = libegads.so
+SOFLGS = -shared

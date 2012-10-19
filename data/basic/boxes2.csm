@@ -1,0 +1,13 @@
+# boxes2
+# written by John Dannenhoffer
+
+box            -1.00     -1.00     -1.00      2.00      2.00      2.00
+box            -0.52     -0.52      0.52      1.00      1.00      1.00
+union
+box             0.04     -0.72      0.52      0.70      1.40      0.70
+subtract
+box            -0.82     -0.82      0.82      0.20      0.20      0.40
+union
+box            -0.82      0.62      0.82      0.20      0.20      0.40
+union
+end

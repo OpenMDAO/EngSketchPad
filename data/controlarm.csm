@@ -1,0 +1,15 @@
+# controlarm
+# written by John Dannenhoffer
+
+cylinder        2.00      0.00      0.00      2.00     11.00      0.00      1.00
+chamfer         0.10
+cylinder        0.00      2.50      0.00      4.00      2.50      0.00      0.50
+subtract
+chamfer         0.10
+cylinder        2.00      7.00     -2.50      2.00      7.00      2.50      3.00
+union
+fillet          0.30
+cylinder        2.00      7.00     -3.00      2.00      7.00      3.00      2.50
+subtract
+
+end

@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "~//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<!--
+/*
+ * WebViewer (wv) WebSocket example with limited UI
+ */
+ -->
+
+<html id="mainBody">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>
+      wv (WebViewer)
+    </title>
+
+    <script type="text/javascript" src="WebViewer/webgl-utils.js"> </script>
+    <script type="text/javascript" src="WebViewer/webgl-debug.js"> </script>
+    <script type="text/javascript" src="WebViewer/J3DIMath.js">    </script>
+    <script type="text/javascript" src="WebViewer/wv-draw.js">     </script>
+    <script type="text/javascript" src="WebViewer/wv-render.js">   </script>
+    <script type="text/javascript" src="WebViewer/wv-gPrim.js">    </script>
+    <script type="text/javascript" src="WebViewer/wv-sGraph.js">   </script>
+    <script type="text/javascript" src="WebViewer/wv-socket.js">   </script>
+
+    <script type="text/javascript" src="wv.js">                    </script>
+    <script type="text/javascript" src="wv-tree.js">               </script>
+
+    <script>
+      "use strict";
+
+      var   g = {};           // place to store "globals"
+      g.zNear =  1.0;         // have some values for Zscreen
+      g.zFar  = 11.0;
+
+      // initialize webSockets
+      var url = prompt("Enter hostname:port", "Localhost:7681");
+
+      getSockets("ws://"+url);
+
+      var myTree = new Tree(document, "myTree", "Viz", "on", "Grd", "off", "Trn", "off");
+
+      window.onresize = resizeFrames;
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="wv.css" />
+  </head>
+
+  <body onload="wvStart(); resizeFrames()">
+    <div id='leftframe'>
+    </div>
+    <div id='riteframe'>
+      <canvas id="WebViewer">
+        If you are seeing this, your web browser does not support the &lt;canvas&gt; element.
+      </canvas>
+    </div>
+    <br />
+    <div id='botmframe'>
+    </div>
+  </body>
+</html>

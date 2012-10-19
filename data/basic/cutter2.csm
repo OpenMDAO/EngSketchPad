@@ -1,0 +1,56 @@
+# cutter2
+# written by John Dannenhoffer
+
+# OML
+sphere    2.0       1.5      -4.6       5.5
+attribute upper_    0
+sphere    2.0       1.5       4.6       5.5
+attribute lower_    0
+intersect
+cylinder  2.0       1.5      -4.0       2.0       1.5         4.0       3.0
+attribute rim_      0
+intersect
+dump      cutter.egads 0
+
+# cutter
+despmtr   nrib      9
+dimension ribs      nrib  4  1
+despmtr   ribs     "0; 3; 4; 3;\
+                    0; 2; 2; 2;\
+                    2; 2; 6; 2;\
+                    0; 0; 2; 1;\
+                    2; 1; 4; 0;\
+                    0; 0; 4; 0;\
+                    0; 0; 0; 3;\
+                    2; 1; 2; 3;\
+                    4; 0; 4; 3"
+despmtr   thick      0.05
+despmtr   zmin      -2.0
+despmtr   zmax       2.0
+
+box       0   0   zmin   4   3   thick    # this is a sprue to hold the ribs together
+
+patbeg irib nrib
+   set       dx   ribs[irib,3]-ribs[irib,1]
+   set       dy   ribs[irib,4]-ribs[irib,2]
+   set       ds   hypot(dx,dy)
+   set       dx   (thick/2)*(dx/ds)
+   set       dy   (thick/2)*(dy/ds)
+
+   skbeg     ribs[irib,1]+dy   ribs[irib,2]-dx   zmin
+      linseg ribs[irib,3]+dy   ribs[irib,4]-dx   zmin
+      linseg ribs[irib,3]-dy   ribs[irib,4]+dx   zmin
+      linseg ribs[irib,1]-dy   ribs[irib,2]+dx   zmin
+      linseg ribs[irib,1]+dy   ribs[irib,2]-dx   zmin
+   skend
+
+   extrude   0   0   zmax-zmin
+   attribute rib_    irib
+   union
+patend
+
+
+# combine utter and OML
+intersect
+
+end

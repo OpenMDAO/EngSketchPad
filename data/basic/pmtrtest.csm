@@ -1,0 +1,52 @@
+# pmtrtest
+# written by John Dannenhoffer
+
+# design Parameters
+despmtr        a         +3.14159e0
+despmtr        b         +.00314159e3
+despmtr        c         +.00314159e+03
+despmtr        d         +314159.e-5
+despmtr        e         +314159e-05
+despmtr        f         +214159e-05+1e0
+despmtr        g         +41.4159e-1-1
+despmtr        h         -41.4159e-1+1
+despmtr        i         1-41.4159e-1
+despmtr        j         pi(1)
+#despmtr        error     a             RHS cannot use Parameter
+#despmtr        error[2]  2             only one subscript
+#despmtr        error[1,2] 2            not dimensioned
+despmtr        k[1,1]    111
+
+dimension     l          2 2 1
+despmtr       l[1,1]     1.1
+despmtr       l[1,2]     1.2
+despmtr       l[2,1]     2.1
+despmtr       l[2,1+1]   2.2
+
+# local Parameters
+set           A          4+hypot(2,(1+1)+1)
+set           B          4+l[2,(1+1)]
+set           C          l
+#set           error      l[2]          only one subscript
+#set           error      l[3,2]        irow>nrow
+#set           error[2]   2             only one subscript
+#set           error[1,2] 2             not dimensioned
+set           D[1,1]     11
+
+despmtr       nrow       3
+despmtr       ncol       4
+dimension     E          nrow ncol 0
+patbeg irow nrow
+    patbeg icol ncol
+        set E[irow,icol] irow*10+icol
+    patend
+patend
+
+dimension     F          2 3 0
+set           F          "1.1; 1.2; 1.3; \  row 1
+                          2.1; 2.2; 2.3"    row 2
+
+# box so that a solid is created
+box            -1.00     -1.00     -1.00      2.00      2.00      2.00
+
+end

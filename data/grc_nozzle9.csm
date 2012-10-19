@@ -1,0 +1,142 @@
+# grc_nozzle9
+# written by John Dannenhoffer
+
+# default design parameters
+despmtr   xPlate    0.50      plate size in x direction
+despmtr   rPlate    6.00      plate radius
+despmtr   xModule   2.25      module size in x direction
+despmtr   yModule   2.10      module size in y direction
+despmtr   zModule   2.10      module size in z direction
+
+despmtr   rOuter    0.90      outer body radius
+despmtr   xteOuter  1.20      outer body trailing edge location
+despmtr   rThroat   0.60      throat radius
+despmtr   xThroat   1.50      throat x location
+despmtr   rExit     1.00      exit radius
+
+despmtr   rHub      0.20      hub radius
+despmtr   xleHub    0.00      hub leading  edge location
+despmtr   xteHub    1.00      hub trailing edge location
+despmtr   rNozl     0.10      fuel nozzle radius
+despmtr   xteNozl   1.30      fuel nozzle trailing edge location
+despmtr   rHole     0.04      fuel nozzle hole radius
+
+despmtr   numVane   4         number of vanes
+despmtr   xleVane   0.10      vane leading  edge location
+despmtr   xteVane   0.90      vane trailing edge location
+despmtr   tVane     0.05      vane thickness
+despmtr   turnVane  90.0      vane turning angle (deg)
+despmtr   npart     13        number of parts for each vane (should be about turnVane/30)
+
+# macro for shape of hole
+macbeg 2
+   skbeg       0         0        0
+      linseg   xModule   0        0
+      linseg   xModule   rExit    0
+      linseg   xThroat   rThroat  0
+      linseg   xteOuter  rOuter   0
+      linseg   0         rOuter   0
+      linseg   0         0        0
+   skend
+   revolve   0.0  0.0  0.0  1.0  0.0  0.0  180.0
+macend
+
+# macro for single vane
+macbeg 3
+   mark
+      patbeg ipart npart
+         set  frac (ipart-1)/(npart-1)
+         skbeg     xleVane  0.90*rHub    -tVane/2
+            linseg xleVane  0.90*rHub    +tVane/2
+            linseg xleVane  1.10*rOuter  +tVane/2
+            linseg xleVane  1.10*rOuter  -tVane/2
+            linseg xleVane  0.90*rHub    -tVane/2
+         skend
+         rotatex   frac*turnVane          0 0
+         translate frac*(xteVane-xleVane) 0 0
+      patend
+   loft 1
+macend
+
+# macro for each module
+macbeg 1
+   # block
+   box       0 -yModule/2 -zModule/2 xModule yModule zModule
+
+   # hole in block (in two halves)
+   recall  2
+   subtract
+
+   recall  2
+   rotatex   180. 0.0  0.0
+   subtract
+
+   # insert vanes
+   patbeg ivane numVane
+      recall  3
+      rotatex (ivane-1)/(numVane)*360 0 0
+      union
+   patend
+
+   # center hub
+   cylinder  xleHub 0 0 xteHub 0 0 rHub
+   union
+
+   # fuel nozzle and hole
+   cylinder  xteHub     0 0 xteNozl     0 0 rNozl
+   union
+   cylinder  xleHub-0.1 0 0 xteNozl+0.1 0 0 rHole
+   subtract
+macend
+
+# generate plate and cut out hole for modules
+cylinder  0  0            0           xPlate 0         0         rPlate
+box       0 -3*yModule/2 -3*zModule/2 xPlate 3*yModule 3*zModule
+subtract
+translate xModule-xPlate 0 0
+
+# add in the modules
+recall  1
+translate 0         -yModule     -zModule
+union
+
+recall  1
+translate 0          0.0         -zModule
+union
+
+recall  1
+translate 0         +yModule     -zModule
+union
+
+recall  1
+translate 0         -yModule      0.0
+union
+
+recall  1
+translate 0          0.0          0.0
+union
+
+recall  1
+translate 0         +yModule      0.0
+union
+
+recall  1
+translate 0         -yModule     +zModule
+union
+
+recall  1
+translate 0          0.0        +zModule
+union
+
+recall  1
+translate 0         +yModule     +zModule
+union
+
+# uncomment next two lines to only see half of configuration
+#  box       0         -rPlate   -rPlate   xModule   rPlate*2  rPlate
+#  intersect
+
+# dump the final STEP file
+dump grc_nozzle9.STEP
+
+end

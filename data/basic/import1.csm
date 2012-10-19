@@ -1,0 +1,10 @@
+# import1
+# written by John Dannenhoffer
+
+import    ../data/basic/import_1.egads
+import    ../data/basic/import_2.egads
+
+translate 0 0.5 0
+union
+
+end

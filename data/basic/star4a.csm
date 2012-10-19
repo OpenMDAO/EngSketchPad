@@ -1,0 +1,75 @@
+# star4a
+# written by John Dannenhoffer
+
+box            -2.00     -2.00     -2.00      4.00      4.00      4.00
+
+# +x spoke
+skbeg           1.50     -1.00     -0.50
+   linseg       1.50     -1.00      0.50
+   linseg       1.50      0.00      0.50
+   cirarc       1.50      0.20      0.20      1.50      1.00      0.00
+   linseg       1.50      1.00     -0.50
+   linseg       1.50     -1.00     -0.50
+skend
+extrude         3.00      0.00      0.00
+subtract
+
+# +y spoke
+skbeg          -0.50      1.50     -1.00
+   linseg       0.50      1.50     -1.00
+   linseg       0.50      1.50      0.00
+   cirarc       0.20      1.50      0.20      0.00      1.50      1.00
+   linseg      -0.50      1.50      1.00
+   linseg      -0.50      1.50     -1.00
+skend
+extrude         0.00      3.00      0.00
+subtract
+
+# +z spoke
+skbeg          -1.00     -0.50      1.50
+   linseg      -1.00      0.50      1.50
+   linseg       0.00      0.50      1.50
+   cirarc       0.20      0.20      1.50      1.00       0.00      1.50
+   linseg       1.00     -0.50      1.50
+   linseg      -1.00     -0.50      1.50
+skend
+extrude         0.00      0.00      3.00
+subtract
+
+# -x spoke
+skbeg           1.50     -1.00     -0.50
+   linseg       1.50     -1.00      0.50
+   linseg       1.50      0.00      0.50
+   cirarc       1.50      0.20      0.20      1.50      1.00      0.00
+   linseg       1.50      1.00     -0.50
+   linseg       1.50     -1.00     -0.50
+skend
+extrude         3.00      0.00      0.00
+translate      -4.50      0.00      0.00
+union
+
+# -y spoke
+skbeg          -0.50      1.50     -1.00
+   linseg       0.50      1.50     -1.00
+   linseg       0.50      1.50      0.00
+   cirarc       0.20      1.50      0.20      0.00      1.50      1.00
+   linseg      -0.50      1.50      1.00
+   linseg      -0.50      1.50     -1.00
+skend
+extrude         0.00      3.00      0.00
+translate       0.00     -4.50      0.00
+union
+
+# -z spoke
+skbeg          -1.00     -0.50      1.50
+   linseg      -1.00      0.50      1.50
+   linseg       0.00      0.50      1.50
+   cirarc       0.20      0.20      1.50      1.0      0.00      1.50
+   linseg       1.00     -0.50      1.50
+   linseg      -1.00     -0.50      1.50
+skend
+extrude         0.00      0.00      3.00
+translate       0.00      0.00     -4.50
+union
+
+end

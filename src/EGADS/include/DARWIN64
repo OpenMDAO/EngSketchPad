@@ -1,0 +1,27 @@
+#MAC OS X 10.5 & up -- 64 bit:
+#
+EGREV   = 1.00
+
+LIBPATH = -L$(CASROOT)/$(CASARCH)/lib -L../../lib
+ifeq ($(CASREV),6.3)
+INCS    = -I$(CASROOT)/inc -I$(CASROOT)
+LIBS    = -lTKBool -lTKernel -lTKFeat -lTKBO -lTKGeomAlgo -lTKMath -lTKOffset -lTKPrim -lTKPShape -lTKTopAlgo -lTKBRep -lTKG2d -lTKG3d -lTKGeomBase -lTKShHealing -lTKSTEP -lTKXSBase -lTKIGES -lTKFillet
+endif
+ifeq ($(CASREV),6.5)
+INCS    = -I$(CASROOT)/include/oce -I$(CASROOT)/inc -I$(CASROOT)
+LIBS    = -lTKBool -lTKernel -lTKFeat -lTKBO -lTKGeomAlgo -lTKMath -lTKOffset -lTKPrim -lTKPShape -lTKTopAlgo -lTKBRep -lTKG2d -lTKG3d -lTKGeomBase -lTKShHealing -lTKSTEP -lTKSTEP209 -lTKSTEPBase -lTKSTEPAttr -lTKXSBase -lTKIGES -lTKFillet -lPTKernel
+endif
+
+DEFINE = -DREVISION=$(CASREV)
+CC     = g++ -m64 -g
+CPPOPT = -O -fPIC -DOCC_CONVERT_SIGNALS -DCSFDB -DHAVE_WOK_CONFIG_H -DHAVE_CONFIG_H  -DNDEBUG -DNo_Exception -D_OCC64 -Wno-write-strings -Wunused
+CCOMP  = gcc -m64 -g
+COPTS  = -O -fno-unit-at-a-time
+FCOMP  = gfortran -m64 -g
+FOPTS  = -O -fcray-pointer -frecursive
+#FCOMP = ifort -m64 -g -traceback
+#FOPTS = -O -recursive
+LOPTS  = rs
+RANLB  =
+SHLIB  = libegads.dylib
+SOFLGS = -bundle -undefined dynamic_lookup

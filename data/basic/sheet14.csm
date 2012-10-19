@@ -1,0 +1,20 @@
+# sheet14
+# written by John Dannenhoffer
+
+skbeg      0.0  0.0  0.0
+   linseg  2.0  0.0  0.0
+   linseg  2.0  2.0  0.0
+   linseg  0.0  2.0  0.0
+   linseg  0.0  0.0  0.0
+skend
+
+skbeg      1.0  1.0 -1.0
+   linseg  1.0  1.0  1.0
+   linseg  3.0  1.0  1.0
+   linseg  3.0  1.0 -1.0
+   linseg  1.0  1.0 -1.0
+skend
+
+union
+
+end

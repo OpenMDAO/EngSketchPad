@@ -1,0 +1,20 @@
+# recall
+# written by John Dannenhoffer
+
+box             1.00      1.00     -1.00      3.00      4.00      2.00
+
+macbeg 1
+   cylinder        0.00      0.00     -1.50      0.00      0.00      1.50      1.00
+   box             0.00     -0.25     -1.00      1.50      0.500     2.00
+   union
+macend
+
+recall          1
+translate       4.00      3.00      0.00
+union
+
+recall          1
+translate       1.00      3.00      0.00
+subtract
+
+end

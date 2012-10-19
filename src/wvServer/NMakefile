@@ -1,0 +1,49 @@
+#
+!include ..\EGADS\include\$(GEM_ARCH).$(MSVC)
+IDIR = ..\EGADS\include
+LDIR = $(GEM_ROOT)\lib
+
+DEFINE = /DNDEBUG /DWIN32 /D_CONSOLE /D_UNICODE /DUNICODE
+
+OBJS = gettimeofday.obj websock-w32.obj base64-decode.obj handshake.obj \
+       client-handshake.obj libwebsockets.obj extension-deflate-stream.obj \
+       md5.obj extension-x-google-mux.obj parsers.obj extension.obj sha-1.obj \
+       server.obj wv.obj
+
+default:	$(LDIR)\z.lib server.exe
+
+server.exe:	server-test.obj $(LDIR)\wsserver.lib
+	cl /Feserver.exe server-test.obj $(LDIR)\wsserver.lib $(LDIR)\z.lib \
+		ws2_32.lib
+	$(MCOMP) /manifest server.exe.manifest /outputresource:server.exe;1
+
+server-test.obj:	server.c
+	cl /c $(COPTS) $(DEFINE) /DSTANDALONE /I. /I$(IDIR) /Iwin32helpers \
+		server.c /Foserver-test.obj
+
+$(LDIR)\wsserver.lib:	$(OBJS)
+	-del $(LDIR)\wsserver.lib
+	lib /out:$(LDIR)\wsserver.lib $(OBJS)
+
+$(OBJS):	extension-deflate-stream.h libwebsockets.h $(IDIR)\wsserver.h \
+		extension-x-google-mux.h private-libwebsockets.h \
+		$(IDIR)\wsss.h
+.c.obj:
+	cl /c $(COPTS) $(DEFINE) /I. /I$(IDIR) /Iwin32helpers /Izlib $<
+
+$(LDIR)\z.lib:
+	cd zlib
+	nmake -f NMakefile
+	cd ..
+
+clean:
+	-del $(OBJS) server-test.obj server.exe
+	cd zlib
+	nmake -f NMakefile clean
+	cd ..
+
+cleanall:
+	-del $(OBJS) server-test.obj server.exe $(LDIR)\wsserver.lib
+	cd zlib
+	nmake -f NMakefile cleanall
+	cd ..

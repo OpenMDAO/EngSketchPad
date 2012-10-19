@@ -1,0 +1,23 @@
+# conez_faux
+# written by John Dannenhoffer
+
+# cone          0.00      0.00     -1.00      0.00      0.00      1.00      1.00
+
+skbeg           0.00      0.00     -1.00
+   linseg       0.00      0.00      1.00
+   linseg       1.00      0.00      1.00
+   linseg       0.00      0.00     -1.00
+skend
+revolve         0.00      0.00      0.00      0.00      0.00      1.00      180.
+
+skbeg           0.00      0.00     -1.00
+   linseg       0.00      0.00      1.00
+   linseg       1.00      0.00      1.00
+   linseg       0.00      0.00     -1.00
+skend
+revolve         0.00      0.00      0.00      0.00      0.00      1.00      180.
+rotatez         180.      0.00      0.00
+
+union
+
+end

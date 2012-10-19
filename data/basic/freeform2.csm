@@ -1,0 +1,6 @@
+# freeform2
+# written by John Dannenhoffer
+
+udprim freeform FileName ../data/basic/freeform2.surf
+
+end

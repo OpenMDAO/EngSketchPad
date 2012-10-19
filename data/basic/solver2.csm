@@ -1,0 +1,43 @@
+# solver2
+# written by John Dannenhoffer
+
+despmtr   W    3.5
+despmtr   H    5.0
+
+set       xa   1.0
+set       ya   1.0
+set       xb   4.6
+set       yb   1.0
+set       xc   4.5
+set       yc   3.2
+set       xd   3.5
+set       yd   3.0
+set       xe   3.4
+set       ye   6.0
+set       xf   1.2
+set       yf   6.0
+
+solbeg    xb;yb;xc;yc;xd;yd;xe;ye;xf;yf;
+   solcon xb-xc
+   solcon yc-yd
+   solcon xd-xe
+   solcon ye-yf
+   solcon hypot(yb-ya,xb-xa)-W
+   solcon hypot(yf-ya,xf-xa)-H
+   solcon hypot(ye-yd,xe-xd)-3
+   solcon hypot(yc-yd,xc-xd)-1
+   solcon (xe-xf)*(xa-xf)+(ye-yf)*(ya-yf)
+#   solcon (xc-xb)*(xa-xb)+(yc-yb)*(ya-yb)
+   solcon xe-xf-2
+solend
+
+skbeg     xa   ya   0.0
+   linseg xb   yb   0.0
+   linseg xc   yc   0.0
+   linseg xd   yd   0.0
+   linseg xe   ye   0.0
+   linseg xf   yf   0.0
+   linseg xa   ya   0.0
+skend
+
+end

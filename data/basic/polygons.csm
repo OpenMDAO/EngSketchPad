@@ -1,0 +1,20 @@
+# polygons
+# written by John Dannenhoffer
+
+# default design parameter
+despmtr r 1/2
+
+patbeg ipoly 6
+   set nv ipoly+2
+   set z  ipoly-1
+
+   skbeg r 0 z
+      patbeg iv nv
+         set x r*cosd(360*iv/nv)
+         set y r*sind(360*iv/nv)
+         linseg x y z
+      patend
+   skend
+patend
+
+end

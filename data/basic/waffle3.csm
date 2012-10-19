@@ -1,0 +1,17 @@
+# waffle3
+# written by John Dannenhoffer
+
+dimension segs 9 4 1
+despmtr   segs "  0; 1; 14; 1;\
+                  0; 4; 14; 4;\
+                  1; 0;  1; 5;\
+                  3; 0;  3; 5;\
+                  5; 0;  5; 5;\
+                  7; 0;  7; 5;\
+                  9; 0;  9; 5;\
+                 11; 0; 11; 5;\
+                 13; 0; 13; 5;"
+
+udprim waffle   Segments !segs Depth 2
+
+end

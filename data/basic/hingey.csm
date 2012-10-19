@@ -1,0 +1,15 @@
+# hingey
+# written by John Dannenhoffer
+
+box             0.00     -1.00      -.10      0.90      2.00      0.20
+
+cylinder        1.00      -.10      0.00      1.00      0.10      0.00      0.25
+union
+fillet          0.03
+
+box             1.10     -1.00      -.10      0.90      2.00      0.20
+rotatey        30.00      0.00      1.00
+union
+fillet          0.03
+
+end

@@ -1,0 +1,54 @@
+# sheet12
+# written by John Dannenhoffer
+
+# OML
+sphere    0.0       0.5      -4.6       5.5
+attribute upper_    0
+sphere    0.0       0.5       4.6       5.5
+attribute lower_    0
+intersect
+cylinder  0.0       0.5      -4.6       0.0      0.5       4.6       2.0
+attribute rim_      0
+intersect
+sphere    0.0       0.5       0.0       1.2
+attribute hole_     0
+subtract
+dump      OML.egads 1
+
+# cutter
+despmtr   nrib      4
+dimension ribs      nrib  4  1
+despmtr   ribs     "-4; -1;  4; -1; \   rib 1
+                    -1; -4; -1;  4; \   rib 2
+                    -4;  1;  4;  1; \   rib 3
+                     1; -4;  1;  4"     rib 4
+despmtr   thick      0.05
+despmtr   zmin      -2.0
+despmtr   zmax       2.0
+
+set irib 1
+   skbeg     ribs[irib,1]   ribs[irib,2]   zmin
+      linseg ribs[irib,3]   ribs[irib,4]   zmin
+      linseg ribs[irib,3]   ribs[irib,4]   zmax
+      linseg ribs[irib,1]   ribs[irib,2]   zmax
+      linseg ribs[irib,1]   ribs[irib,2]   zmin
+   skend
+   attribute rib_    irib
+
+patbeg jrib nrib-1
+   set irib jrib+1
+   skbeg     ribs[irib,1]   ribs[irib,2]   zmin
+      linseg ribs[irib,3]   ribs[irib,4]   zmin
+      linseg ribs[irib,3]   ribs[irib,4]   zmax
+      linseg ribs[irib,1]   ribs[irib,2]   zmax
+      linseg ribs[irib,1]   ribs[irib,2]   zmin
+   skend
+   attribute rib_    irib
+
+   union
+patend
+
+import    OML.egads
+intersect
+
+end

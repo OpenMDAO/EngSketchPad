@@ -1,0 +1,15 @@
+# hingez
+# written by John Dannenhoffer
+
+box             -.10      0.00     -1.00      0.20      0.90      2.00
+
+cylinder        0.00      1.00      -.10      0.00      1.00      0.10      0.25
+union
+fillet          0.03
+
+box             -.10      1.10     -1.00      0.20      0.90      2.00
+rotatez        30.00      0.00      1.00
+union
+fillet          0.03
+
+end

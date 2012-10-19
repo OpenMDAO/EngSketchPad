@@ -1,0 +1,13 @@
+# rot30z
+# written by John Dannenhoffer
+
+box       -1.0      -1.0      -1.0       2.0       2.0       2.0
+
+box       -0.5     -10.0      -0.5       1.0      20.0       1.0
+union
+
+box       -0.5     -10.0      -0.5       1.0      20.0       1.0
+rotatez   30.0       0.0      10.0
+union
+
+end

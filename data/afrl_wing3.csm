@@ -1,0 +1,100 @@
+# afrl_wing3  (thick ribs and spars)
+# written by John Dannenhoffer
+
+# default design parameters
+despmtr   series    8412      mptt
+despmtr   area      40        len^2
+despmtr   aspect    6.0       -
+despmtr   taper     0.5       -
+despmtr   twist     5.0       deg
+despmtr   lesweep   30.0      deg
+despmtr   dihedral  5.0       deg
+
+despmtr   nspar     3         -
+despmtr   nrib      8         -
+despmtr   Tspar     0.05      len
+despmtr   Trib      0.02      len
+
+despmtr   onesolid  1
+
+# internal parameters
+set       cmean     sqrt(area/aspect)
+set       span      cmean*aspect
+set       sspan     span/2
+set       croot     2*cmean/(1+taper)
+set       ctip      croot*taper
+set       xtip      sspan*tand(lesweep)
+set       ytip      sspan*tand(dihedral)
+
+set       ybot      -0.1*croot
+set       ytop      +0.2*croot+ytip
+set       extend    0.02*cmean
+
+# wing OML
+mark
+udprim              naca      Series    !series
+scale               croot
+udprim              naca      Series    !series
+scale               ctip
+rotatez             -twist    0         0
+translate           xtip      ytip      -sspan
+loft                0
+attribute           OML 0
+
+dump                ./OML.egads  1
+
+# spars
+patbeg              ispar  nspar
+    set             frac  ispar/(nspar+1)
+    set             T     Tspar/2
+    skbeg           frac*croot-T      ybot  +extend
+        linseg      frac*ctip+xtip-T  ybot  -sspan-extend
+	linseg      frac*ctip+xtip+T  ybot  -sspan-extend
+	linseg      frac*croot+T      ybot  +extend
+	linseg      frac*croot-T      ybot  +extend
+    skend
+    extrude         0  ytop-ybot  0
+    attribute       spar  ispar
+
+    # trim to OML if not onesolid
+    patbeg          dum  1-onesolid
+        import      ./OML.egads
+        intersect
+    patend
+patend
+
+# ribs
+patbeg              irib  nrib
+    set             frac  (irib-1)/(nrib-1)
+    set             T     Trib/2*ifzero(irib-1,2,ifzero(irib-nrib,2,1))    # thicken outboard ribs
+    skbeg           frac*xtip-extend                     ybot  -frac*sspan-T
+        linseg      croot+frac*(xtip-croot+ctip)+extend  ybot  -frac*sspan-T
+	linseg      croot+frac*(xtip-croot+ctip)+extend  ybot  -frac*sspan+T
+	linseg      frac*xtip-extend                     ybot  -frac*sspan+T
+        linseg      frac*xtip-extend                     ybot  -frac*sspan-T
+    skend
+    extrude         0  ytop-ybot  0
+    attribute       rib  irib
+
+    # trim to OML if not onesolid
+    patbeg          dum  1-onesolid
+        import      ./OML.egads
+        intersect
+    patend
+
+    # union with ribs if onesolid
+    patbeg          dum  onesolid
+        union
+        patbeg      foo  ifzero(irib-1,nspar-1,0)
+            union
+        patend
+    patend
+patend
+
+# trim to OML if onesolid
+patbeg              dum  onesolid
+    import          ./OML.egads
+    intersect
+patend
+
+end

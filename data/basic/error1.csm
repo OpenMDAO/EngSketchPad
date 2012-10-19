@@ -1,0 +1,58 @@
+# error1 (should return box)
+# written by John Dannenhoffer
+
+# design parameters for box
+despmtr        xmin      -1.00
+despmtr        xmax       1.00
+despmtr        ymin      -1.00
+despmtr        ymax       1.00
+despmtr        zmin      -1.00
+despmtr        zmax       1.00
+
+# design parameters for feature
+dimension      feat       2    2    1
+despmtr        feat[1,1]  0.00      # focus 1
+despmtr        feat[1,2] -0.50
+despmtr        feat[2,1]  0.50      # focus 2
+despmtr        feat[2,2] -0.50
+despmtr        radius     0.50
+
+# build the box
+box            xmin       ymin      zmin      xmax-xmin ymax-ymin zmax-zmin
+name           box
+attribute      xsize      xmax-xmin
+attribute      ysize      ymax-ymin
+attribute      zsize      zmax-zmin
+
+# build and union the feature
+skbeg          feat[2,1]            0.00      feat[2,2]+radiusBAD
+    cirarc     feat[2,1]+radius     0.00      feat[2,2]\
+               feat[2,1]            0.00      feat[2,2]-radius
+    linseg     feat[1,1]            0.00      feat[1,2]-radius
+    cirarc     feat[1,1]-radius     0.00      feat[1,2]\
+               feat[1,1]            0.00      feat[1,2]+radius
+    linseg     feat[2,1]            0.00      feat[2,2]+radius
+skend
+extrude         0.00      2.00      0.00
+name           feature
+translate       0.40      0.00      0.10
+union
+
+# local parameters for center of hole
+set      xc     0.50
+set      yc     -.70
+set      zc     0.45
+
+# build and subtract the hole
+skbeg           xc        yc-.20    zc-.40
+    cirarc      xc        yc        zc-.45    xc        yc+.20    zc-.40
+    linseg      xc        yc+.20    zc+.40
+    set         dummy     0.00
+    cirarc      xc        yc        zc+.45    xc        yc-.20    zc+.40
+    linseg      xc        yc-.20    zc-.40
+skend
+extrude         0.70      0.00      0.00
+name           hole
+subtract
+
+end

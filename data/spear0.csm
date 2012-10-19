@@ -1,0 +1,101 @@
+# spear0
+# written by John Dannenhoffer
+
+# default design parameters
+despmtr   headLen             10        length of head
+despmtr   overallLen          30        overall length
+despmtr   shaftDiam           0.2       diameter of shaft
+despmtr   headAng             10        head half angle
+despmtr   noseRad             0.2       nose radius
+despmtr   shldrRad            0.1       shoulder radius
+
+despmtr   nfin                0         number of fins
+despmtr   finAng              60        fin angle
+despmtr   finHeight           2         fin height
+despmtr   finLen              4         fin length
+despmtr   finWidth            0.2       fin width
+despmtr   filRad              0.2       fillet radius
+despmtr   finXlate            -.05      fin translation from end of shaft
+
+# computed values
+
+set       x1        noseRad
+set       y1        0
+
+set       x3        x1-noseRad/sind(headAng)
+set       y3        0
+
+set       x4        headLen
+set       y4        y3+(x4-x3)*tand(headAng)
+
+set       x5        x1-noseRad*sind(headAng)
+set       y5        y1+noseRad*cosd(headAng)
+
+set       d         shldrRad/tand((90-headAng)/2)
+set       x6        x4-d*cosd(headAng)
+set       y6        y4-d*sind(headAng)
+
+set       x7        x4
+set       y7        y4-d
+
+set       x2        x7-shldrRad
+set       y2        y7
+
+set       x9        overallLen-shaftDiam/tand(finAng)
+set       y9        0
+
+set       x8        x9-finLen
+set       y8        0
+
+set       x10       x8+finHeight/tand(finAng)
+set       y10       finHeight
+
+set       x11       x10+finLen
+set       y11       finHeight
+
+set       x12       x11-finLen/4
+set       y12       y11
+
+set       x13       x1-noseRad*cosd(10)
+set       y13       y1+noseRad*sind(10)
+
+# build head
+skbeg     x2        0            0
+   linseg x2        y2-shldrRad  0
+   cirarc x7        y7           0         x6        y6        0
+   linseg x5        y5           0
+   cirarc x13       y13          0         0         0         0
+   linseg x2        0            0
+skend
+revolve   0         0            0         1         0         0          360
+
+# shaft (with fillet at head)
+cylinder  x2        0         0         overallLen 0        0         shaftDiam
+union
+fillet    filRad
+
+# fins
+set       Cf        0.3*cosd(finAng)
+set       Sf        0.3*sind(finAng)
+
+macbeg 2
+   skbeg     x8        y8        -finWidth/2
+      linseg x9        y9        -finWidth/2
+      linseg x11       y11       -finWidth/2
+      spline x12       y12       -finWidth/2
+      spline x8+Cf     y8+Sf     -finWidth/2
+      spline x8        y8        -finWidth/2
+   skend
+
+   extrude   0         0         finWidth
+macend
+
+# add fins
+patbeg ifin nfin
+   recall 2
+   rotatex   360*(ifin-1)/nfin 0 0
+   translate finXlate 0 0
+   union
+patend
+
+end

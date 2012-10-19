@@ -1,0 +1,40 @@
+# star1
+# written by John Dannenhoffer
+
+box            -1.00     -2.00     -3.00      2.00      4.00      6.00
+
+# +x spoke
+box            -0.50     -0.50      0.00      1.00      1.00      6.00
+rotatey        90.00      0.00      0.00
+rotatex        30.00      0.00      0.00
+union
+
+# +y spoke
+box            -0.50     -0.50      0.00      1.00      1.00      6.00
+rotatex       -90.00      0.00      0.00
+rotatey        30.00      0.00      0.00
+union
+
+# +z spoke
+box            -0.50     -0.50      0.00      1.00      1.00      6.00
+rotatez        30.00      0.00      0.00
+union
+
+# -x spoke
+box            -0.50     -0.50      0.00      1.00      1.00      6.00
+translate       0.00      0.00     -6.00
+rotatey        90.00      0.00      0.00
+union
+
+# -y spoke
+box            -0.50     -0.50      0.00      1.00      1.00      6.00
+translate       0.00      0.00     -6.00
+rotatex       -90.00      0.00      0.00
+union
+
+# -z spoke
+box            -0.50     -0.50      0.00      1.00      1.00      6.00
+translate       0.00      0.00     -6.00
+union
+
+end

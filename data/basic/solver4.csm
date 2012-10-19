@@ -1,0 +1,103 @@
+# solver4
+# written by John Dannenhoffer
+
+despmtr   L    9.0  overall length
+despmtr   H    4.0  overall height
+despmtr   R1  -1.5  given radius
+despmtr   TH1 -60   given turning angle (degrees)
+despmtr   D5   0.7  given segment length
+despmtr   R7   0.2  given radius
+despmtr   TH6 -150  given inclination
+
+set       x1   3.0
+set       y1   1.0
+set       x2   4.0
+set       y2   2.3
+set       x3   3.0
+set       y3   5.2
+set       x4   0.5
+set       y4   5.2
+set       x5  -3.0
+set       y5   3.0
+set       x6  -2.9
+set       y6   2.0
+set       x7  -4.2
+set       y7   1.4
+set       x8  -4.2
+set       y8   1.0
+set       C1   1.0/R1+0.1       # approach from below
+set       C2   0.6
+set       C7   1.0/R7-0.1       # approach from below
+
+solbeg    x2;y2;x3;y3;x4;y4;x5;y5;x6;y6;x7;y7;x8;y8;C1;C2;C7;
+
+          # convex perpendicularity at 1
+   solcon tangent(x8,y8,0,x1,y1,C1,x2,y2)-90
+
+          # tangency at 2
+   solcon tangent(x1,y1,C1,x2,y2,C2,x3,y3)
+
+          # tangency at 3
+   solcon tangent(x2,y2,C2,x3,y3,0,x4,y4)
+
+          # convex perpendicularity at 5
+   solcon tangent(x4,y4,0,x5,y5,0,x6,y6)-90
+
+          # cancave perpendicularity at 6
+   solcon tangent(x5,y5,0,x6,y6,0,x7,y7)+90
+
+          # tangency at 7
+   solcon tangent(x6,y6,0,x7,y7,C7,x8,y8)
+
+          # tangency at 8
+   solcon tangent(x7,y7,C7,x8,y8,0,x1,y1)
+
+          # horizontal segment 3-4
+   solcon y4-y3
+
+          # horizontal segment 8-1
+   solcon y1-y8
+
+          # segment 6-7 at given inclination
+   solcon atan2d(y7-y6,x7-x6)-TH6
+
+          # specified radius and turning angle for arc 1-2
+   solcon 1/C1-R1
+   solcon turnang(x1,y1,C1,x2,y2)-TH1
+
+          # specified length of segment 5-6
+   solcon sqrt((y6-y5)^2+(x6-x5)^2)-D5
+
+          # segemnt 4-5 is three time longer than segment 6-7
+   solcon sqrt((y5-y4)^2+(x5-x4)^2)-3*sqrt((y7-y6)^2+(x7-x6)^2)
+
+          # sepcified radius for arc 7-8
+   solcon (1/C7)-R7
+
+          # overall length
+   solcon ((Xcent(x2,y2,C2,x3,y3)+1/C2)-(Xcent(x7,y7,C7,x8,y8)-1/C7))-L
+
+          # overall height
+   solcon (y3-y1)-H
+solend
+
+# midpoints on circular arc segments
+set       x12  Xmidl(x1,y1,C1,x2,y2)
+set       y12  Ymidl(x1,y1,C1,x2,y2)
+set       x23  Xmidl(x2,y2,C2,x3,y3)
+set       y23  Ymidl(x2,y2,C2,x3,y3)
+set       x78  Xmidl(x7,y7,C7,x8,y8)
+set       y78  Ymidl(x7,y7,C7,x8,y8)
+
+skbeg     x1   y1   0.0
+   cirarc x12  y12  0.0  x2  y2  0.0
+   cirarc x23  y23  0.0  x3  y3  0.0
+   linseg x4   y4   0.0
+   linseg x5   y5   0.0
+   linseg x6   y6   0.0
+   linseg x7   y7   0.0
+   cirarc x78  y78  0.0  x8  y8  0.0
+   linseg x1   y1   0.0
+skend
+
+end

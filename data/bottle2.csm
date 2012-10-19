@@ -1,0 +1,37 @@
+# bottle2 (from OpenCASCADE tutorial)
+# written by John Dannenhoffer
+
+# default design parameters
+despmtr   width               10.00
+despmtr   depth                4.00
+despmtr   height              15.00
+despmtr   neckDiam             2.50
+despmtr   neckHeight           3.00
+despmtr   wall                 0.20     wall thickness (in neck)
+despmtr   filRad1              0.25     fillet radius on body of bottle
+despmtr   filRad2              0.10     fillet radius between bottle and neck
+
+# basic bottle shape (filletted)
+
+set       baseHt    height-neckHeight
+
+skbeg     -width/2  -depth/4  0
+   cirarc 0         -depth/2  0         +width/2  -depth/4  0
+   linseg +width/2  +depth/4  0
+   cirarc 0         +depth/2  0         -width/2  +depth/4  0
+   linseg -width/2  -depth/4  0
+skend
+extrude   0         0         baseHt
+fillet    filRad1
+
+# neck
+cylinder  0         0         baseHt    0         0         height      neckDiam/2
+
+# join the neck to the bottle and apply a fillet at the union
+union
+fillet    filRad2
+
+# hollow out bottle
+hollow    wall      18
+
+end

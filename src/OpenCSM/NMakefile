@@ -1,0 +1,91 @@
+#	Makefile for OpenCSM
+#
+!include ..\EGADS\include\$(GEM_ARCH).$(MSVC)
+DEFINS = $(DEFINE) /DGEOM_EGADS
+IDIR   = ..\EGADS\include
+WDIR   = ..\wvServer
+LDIR   = $(GEM_ROOT)\lib
+BDIR   = $(GEM_ROOT)\bin
+
+default:	$(BDIR)\serveCSM.exe $(LDIR)\import.dll $(LDIR)\naca.dll \
+		$(LDIR)\ellipse.dll $(LDIR)\waffle.dll $(LDIR)\freeform.dll
+
+
+serveCSM.obj:	OpenCSM.h common.h serveCSM.c
+	cl /c $(COPTS) $(DEFINS) /I$(IDIR) /I$(WDIR)\win32helpers serveCSM.c
+
+OpenCSM.obj:	OpenCSM.h common.h OpenCSM.c
+	cl /c $(COPTS) $(DEFINS) /I$(IDIR) OpenCSM.c
+
+udp.obj:	udp.c
+	cl /c $(COPTS) $(DEFINS) /I$(IDIR) udp.c
+
+$(BDIR)\serveCSM.exe:	serveCSM.obj OpenCSM.obj udp.obj
+	cl /Fe$(BDIR)\serveCSM.exe serveCSM.obj OpenCSM.obj udp.obj \
+		/link /LIBPATH:$(LDIR) wsserver.lib z.lib egads.lib ws2_32.lib
+        $(MCOMP) /manifest $(BDIR)\serveCSM.exe.manifest \
+                /outputresource:$(BDIR)\serveCSM.exe;1
+
+udpImport.obj:	udpImport.c
+	cl /c $(COPTS) $(DEFINS) /I$(IDIR) udpImport.c
+
+$(LDIR)\import.dll:	udpImport.obj
+	-del $(LDIR)\import.dll $(LDIR)\import.lib $(LDIR)\import.exp
+	link /out:$(LDIR)\import.dll /dll /def:import.def udpImport.obj \
+		$(LDIR)\egads.lib
+	$(MCOMP) /manifest $(LDIR)\import.dll.manifest \
+		/outputresource:$(LDIR)\import.dll;2
+
+udpNaca.obj:	udpNaca.c
+	cl /c $(COPTS) $(DEFINS) /I$(IDIR) udpNaca.c
+
+$(LDIR)\naca.dll:	udpNaca.obj
+	-del $(LDIR)\naca.dll $(LDIR)\naca.lib $(LDIR)\naca.exp
+	link /out:$(LDIR)\naca.dll /dll /def:import.def udpNaca.obj \
+		$(LDIR)\egads.lib
+        $(MCOMP) /manifest $(LDIR)\naca.dll.manifest \
+		/outputresource:$(LDIR)\naca.dll;2
+
+udpEllipse.obj:	udpEllipse.c
+	cl /c $(COPTS) $(DEFINS) /I$(IDIR) udpEllipse.c
+
+$(LDIR)\ellipse.dll:	udpEllipse.obj
+	-del $(LDIR)\ellipse.dll $(LDIR)\ellipse.lib $(LDIR)\ellipse.exp
+	link /out:$(LDIR)\ellipse.dll /dll /def:import.def udpEllipse.obj \
+		$(LDIR)\egads.lib
+	$(MCOMP) /manifest $(LDIR)\ellipse.dll.manifest \
+		/outputresource:$(LDIR)\ellipse.dll;2
+
+udpWaffle.obj:	udpWaffle.c
+	cl /c $(COPTS) $(DEFINS) /I$(IDIR) udpWaffle.c
+
+$(LDIR)\waffle.dll:	udpWaffle.obj
+	-del $(LDIR)\waffle.dll $(LDIR)\waffle.lib $(LDIR)\waffle.exp
+	link /out:$(LDIR)\waffle.dll /dll /def:import.def udpWaffle.obj \
+		$(LDIR)\egads.lib
+	$(MCOMP) /manifest $(LDIR)\waffle.dll.manifest \
+		/outputresource:$(LDIR)\waffle.dll;2
+
+udpFreeform.obj:	udpFreeform.c
+	cl /c $(COPTS) $(DEFINS) /I$(IDIR) udpFreeform.c
+
+$(LDIR)\freeform.dll:	udpFreeform.obj
+	-del $(LDIR)\freeform.dll $(LDIR)\freeform.lib $(LDIR)\freeform.exp
+	link /out:$(LDIR)\freeform.dll /dll /def:import.def udpFreeform.obj \
+		$(LDIR)\egads.lib
+	$(MCOMP) /manifest $(LDIR)\freeform.dll.manifest \
+		/outputresource:$(LDIR)\freeform.dll;2
+
+clean:
+	-del serveCSM.obj OpenCSM.obj udp.obj udpImport.obj udpNaca.obj \
+	-del udpEllipse.obj udpWaffle.obj udpFreeform.obj
+
+cleanall:
+	-del serveCSM.obj OpenCSM.obj udp.obj udpImport.obj udpNaca.obj 
+	-del udpEllipse.obj udpWaffle.obj udpFreeform.obj $(BDIR)\serveCSM 
+	-del $(LDIR)\import.dll $(LDIR)\import.lib $(LDIR)\import.exp
+	-del $(LDIR)\naca.dll $(LDIR)\naca.lib $(LDIR)\naca.exp
+	-del $(LDIR)\ellipse.dll $(LDIR)\ellipse.lib $(LDIR)\ellipse.exp
+	-del $(LDIR)\waffle.dll $(LDIR)\waffle.lib $(LDIR)\waffle.exp
+	-del $(LDIR)\freeform.dll $(LDIR)\freeform.lib $(LDIR)\freeform.exp
+	-del $(BDIR)\serveCSM.exe $(BDIR)\serveCSM.exe.manifest $(LDIR)\*.manifest

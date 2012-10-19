@@ -1,0 +1,40 @@
+# ../data/tutorial_new.csm written by ocsmSave
+
+# Design Parameters:
+despmtr   Lbar[1,1]       6.00000
+despmtr   Rbar[1,1]       0.40000
+despmtr   T[1,1]       0.50000
+despmtr   D[1,1]       2.00000
+despmtr   Rout[1,1]       1.20000
+despmtr   Rfil[1,1]       0.10000
+despmtr   Rhole[1,1]       0.08000
+
+# Branches:
+set       L Lbar/2
+cylinder  -L   0.0   0.0   +L   0.0   0.0   Rbar
+name      shaft
+attribute shaft   1
+box       -L-T/2   -D/4   -D   T   D/2   2*D
+name      left_weight
+attribute weight   1
+union
+fillet    Rfil   0
+box       +L-T/2   -D/2   -D/2   T   D   D
+name      rite_weight
+attribute weight   2
+union
+fillet    Rfil   0
+cylinder  -L-T   0.00   0.00   +L+T   0.00   0.00   Rout
+attribute clipper   1
+intersect none   1
+sphere    1   0   0   2
+intersect none   1
+cylinder  -1.1*L   0   0   +1.1*L   0   0   0.2
+subtract none   1
+patbeg    i 7
+cylinder  i/3   0   -1   i/3   0   +1   Rhole
+rotatex   -15*(i-1)   0   0
+subtract none   1
+patend
+
+end

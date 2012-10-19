@@ -1,0 +1,39 @@
+# pattern2c
+# written by John Dannenhoffer
+
+despmtr         nx  3
+despmtr         ny  2
+
+box             0.00      0.00     -0.10      nx+1      ny+1      0.20
+
+macbeg 1
+   cylinder     0.00      0.00     -0.20      0.00      0.00      0.20      0.30
+   box          -.20      -.50     -0.20      0.40      1.00      0.40
+   intersect
+macend
+
+recall 1
+translate       1.00      1.00      0.00
+subtract
+
+recall 1
+translate       1.00      2.00      0.00
+subtract
+
+recall 1
+translate       2.00      1.00      0.00
+subtract
+
+recall 1
+translate       2.00      2.00      0.00
+subtract
+
+recall 1
+translate       3.00      1.00      0.00
+subtract
+
+recall 1
+translate       3.00      2.00      0.00
+subtract
+
+end

@@ -1,0 +1,21 @@
+# fuselage2
+# written by John Dannenhoffer
+
+dimension ry       9  1  1
+dimension rz       9  1  1
+dimension x0       9  1  1
+dimension y0       9  1  1
+
+despmtr   ry       "0.5;  2.5;  5.0;  7.5;  7.5;  5.0;  5.0;  3.5;  2.0"
+despmtr   rz       "0.5;  2.5;  5.0; 10.0; 10.0; 10.0;  5.0;  3.0;  1.0"
+despmtr   x0       "0.5;  5.0; 10.0; 20.0; 30.0; 40.0; 50.0; 55.0; 60.0"
+despmtr   y0       "0.0;  0.0;  0.0;  2.5;  2.5;  0.0;  0.0;  0.0;  0.0"
+
+mark
+patbeg    i 9
+    udprim ellipse  ry !ry[i,1]  rz !rz[i,1]
+    translate       x0[i,1]      y0[i,1]      0.0
+patend
+loft 1
+
+end

@@ -1,0 +1,263 @@
+# lander
+# written by John Dannenhoffer
+
+# default design parameters
+despmtr   Rtank     3.00      tank radius
+despmtr   Rfuel     0.50      fuel line radii
+despmtr   Rpost     0.40      radius of posts
+despmtr   Rcross    0.20      radius of cross-frame members
+despmtr   Rfoot     1.00      radius of feet
+despmtr   Rleg      0.15      radius of legs
+despmtr   Rsupport  0.05      raius of leg supports
+despmtr   Yjoint    6.0       height of leg support joint
+despmtr   Nhole1    2.0       number of holes in box1
+despmtr   Nhole2    5.0       number of holes in box2
+
+# macro to give two end points for cylinder
+# expects xbeg, ybeg, zbeg, xend, yend, zend, radius
+macbeg    1
+    set       dx        xend-xbeg
+    set       dy        yend-ybeg
+    set       dz        zend-zbeg
+    set       length    sqrt(dx^2+dy^2+dz^2)
+    set       azimuth   atan2d(dz,dx)
+    set       elevation atan2d(dy,sqrt(dx^2+dz^2))
+
+    cylinder  xbeg  ybeg  zbeg  xbeg+length  ybeg  zbeg  radius
+    rotatez   elevation   xbeg  ybeg
+    rotatey   -azimuth    zbeg  xbeg
+macend
+    
+# basic frame
+cylinder  -4.0       2.7      -4.0      -4.0      11.3      -4.0      Rpost
+name      post1
+
+cylinder  -4.0       3.0      -4.0       4.0       3.0      -4.0      Rcross
+union
+
+cylinder   4.0       2.7      -4.0       4.0      11.3      -4.0      Rpost
+name      post2
+union
+
+cylinder   4.0       3.0      -4.0       4.0       3.0       4.0      Rcross
+union
+
+cylinder   4.0       2.7       4.0       4.0      11.3       4.0      Rpost
+name      post4
+union
+
+cylinder  -4.0       3.0       4.0       4.0       3.0       4.0      Rcross
+union
+
+cylinder  -4.0       2.7       4.0      -4.0      11.3       4.0      Rpost
+union
+name      post3
+
+cylinder  -4.0       3.0      -4.0      -4.0       3.0       4.0      Rcross
+union
+
+cylinder  -4.0      11.0      -4.0       4.0      11.0      -4.0      Rcross
+union
+
+cylinder   4.0      11.0      -4.0       4.0      11.0       4.0      Rcross
+union
+
+cylinder  -4.0      11.0       4.0       4.0      11.0       4.0      Rcross
+union
+
+cylinder  -4.0      11.0      -4.0      -4.0      11.0       4.0      Rcross
+union
+
+# leg assemblies
+patbeg    i     4
+    # foot
+    cylinder  -10.0      0.8       0.0     -10.0      1.2        0.0      Rfoot
+
+    # leg
+    set        xbeg     -4.0
+    set        ybeg     11.0
+    set        zbeg      0.0
+    set        xend    -10.0
+    set        yend      1.0
+    set        zend      0.0
+    set        radius    Rleg
+    recall     1
+    union
+
+    # leg supports
+    set        xbeg     -4.0
+    set        ybeg      3.0
+    set        zbeg     -4.0
+    set        xend      -10.6+0.6*Yjoint
+    set        yend      Yjoint
+    set        zend      0.0
+    set        radius    Rsupport
+    recall     1
+
+    set        zbeg      4.0
+    recall     1
+    union
+    union
+
+    # hollow out foot
+    cylinder   -10.0     0.7       0.0     -10.0      1.0        0.0      Rfoot-0.1
+    subtract
+
+    # put assembly in place
+    rotatey    (i-1)*90  0.0  0.0
+    union
+patend
+
+# fuel tanks (each made as two halves)
+skbeg      -4       7-Rtank -4
+    cirarc -4-Rtank 7       -4 \
+           -4       7+Rtank -4
+    linseg -4       7-Rtank -4
+skend
+revolve    -4       7       -4  0  1  0  180
+
+skbeg      -4       7-Rtank -4
+    cirarc -4-Rtank 7       -4 \
+           -4       7+Rtank -4
+    linseg -4       7-Rtank -4
+skend
+revolve    -4       7       -4  0  1  0  180
+rotatey    180   -4   -4
+union
+name      tank1
+union
+
+skbeg       4       7-Rtank -4
+    cirarc  4-Rtank 7       -4 \
+            4       7+Rtank -4
+    linseg  4       7-Rtank -4
+skend
+revolve     4       7       -4  0  1  0  180
+
+skbeg       4       7-Rtank -4
+    cirarc  4-Rtank 7       -4 \
+            4       7+Rtank -4
+    linseg  4       7-Rtank -4
+skend
+revolve     4       7       -4  0  1  0  180
+
+rotatey    180   -4     4
+union
+name      tank2
+union
+
+skbeg      -4       7-Rtank  4
+    cirarc -4-Rtank 7        4 \
+           -4       7+Rtank  4
+    linseg -4       7-Rtank  4
+skend
+revolve    -4       7        4  0  1  0  180
+skbeg      -4       7-Rtank  4
+    cirarc -4-Rtank 7        4 \
+           -4       7+Rtank  4
+    linseg -4       7-Rtank  4
+skend
+revolve    -4       7        4  0  1  0  180
+rotatey    180   4   -4
+union
+name      tank3
+union
+
+skbeg       4       7-Rtank  4
+    cirarc  4-Rtank 7        4 \
+            4       7+Rtank  4
+    linseg  4       7-Rtank  4
+skend
+revolve     4       7        4  0  1  0  180
+
+skbeg       4       7-Rtank  4
+    cirarc  4-Rtank 7        4 \
+            4       7+Rtank  4
+    linseg  4       7-Rtank  4
+skend
+revolve     4       7        4  0  1  0  180
+rotatey    180   4   4
+union
+name      tank4
+union
+
+# fuel feed lines
+set         xbeg       -4.0
+set         ybeg        6.0
+set         zbeg       -4.0
+set         xend        4.0
+set         yend        6.0
+set         zend        4.0
+set         radius      Rfuel
+recall      1
+union
+
+set         xbeg       -4.0
+set         ybeg        6.0
+set         zbeg        4.0
+set         xend        4.0
+set         yend        6.0
+set         zend       -4.0
+set         radius      Rfuel
+recall      1
+union
+
+# engine (made as two halves)
+skbeg       0.0      5.0       0.0
+    linseg  0.9      5.0       0.0
+    linseg  2.0      2.0       0.0
+    linseg  2.1      2.0       0.0
+    linseg  1.0      5.0       0.0
+    linseg  1.0      7.0       0.0
+    linseg  0.5      7.5       0.0
+    linseg  0.0      7.5       0.0
+    linseg  0.0      5.0       0.0
+skend
+revolve     0.0      0.0       0.0       0.0       1.0       0.0       180
+
+skbeg       0.0      5.0       0.0
+    linseg  0.9      5.0       0.0
+    linseg  2.0      2.0       0.0
+    linseg  2.1      2.0       0.0
+    linseg  1.0      5.0       0.0
+    linseg  1.0      7.0       0.0
+    linseg  0.5      7.5       0.0
+    linseg  0.0      7.5       0.0
+    linseg  0.0      5.0       0.0
+skend
+revolve     0.0      0.0       0.0       0.0       1.0       0.0       180
+rotatey    180   0   0
+union
+name      engine
+union
+
+# equipment racks
+cylinder    -1.0     11.0      -4.0      -1.0      11.0      4.0     0.1
+union
+
+cylinder     1.0     11.0      -4.0       1.0      11.0      4.0     0.1
+union
+
+# rack 1
+box         -2.0     11.05     -3.0       4.0       3.0      3.0
+cylinder     0.0     11.0      -1.5       0.0      15.5     -1.5     2.0
+intersect
+name       rack1
+
+patbeg      i  Nhole1
+    cylinder   i-(Nhole1+1)/2   12.5   -4.0    i-(Nhole1+1)/2  12.5   0.0   0.4
+    subtract
+patend
+union
+
+# rank 2
+box         -3.0     11.05     1.0       6.0       2.0      2.0
+name       rack2
+
+patbeg      i  Nhole2
+    cylinder   i-(Nhole2+1)/2   12.0    0.0    i-(Nhole2+1)/2  12.0   4.0   0.2
+    subtract
+patend
+union
+
+end

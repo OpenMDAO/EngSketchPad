@@ -1,0 +1,510 @@
+# fighter1 (inspired by F16)
+# written by John Dannenhoffer
+
+######### Design parameters ##########
+
+# make swithes
+despmtr   makeOML   1
+despmtr   makeMSA   1
+despmtr   makeSSM   0
+despmtr   makeBEM   1
+
+# fuselage OML
+despmtr   num_fO    16
+dimension x_fO      num_fO   1    1
+dimension ymin_fO   num_fO   1    1
+dimension zmin_fO   num_fO   1    1
+dimension zmax_fO   num_fO   1    1
+
+despmtr   x_fO      "  0.1;  1.0;  2.0;  3.0;  4.0;  5.0;  6.0;  7.0;  8.0;  9.0; 10.0; 11.0; 12.0; 13.0; 13.9; 14.0"
+despmtr   ymin_fO   "-0.05; -0.4; -0.6; -0.6; -0.6; -0.6; -0.6; -0.6; -0.5; -0.4; -0.3; -0.3; -0.3; -0.3; -0.3; -0.3"
+despmtr   zmin_fO   "-0.02; -0.2; -0.3; -0.3; -0.3; -0.2; -0.1;  0.0;  0.0;  0.0;  0.0;  0.0;  0.0;  0.0;  0.0;  0.0"
+despmtr   zmax_fO   " 0.02;  0.2;  0.5;  0.8;  1.2;  1.2;  1.0;  0.8;  0.7;  0.6;  0.6;  0.6;  0.6;  0.6;  0.6;  0.6"
+
+# propulsion OML
+despmtr   num_pO    10
+dimension x_pO      num_pO    1    1
+dimension ymin_pO   num_pO    1    1
+dimension zmin_pO   num_pO    1    1
+dimension zmax_pO   num_pO    1    1
+
+despmtr   x_pO      "  4.0;  4.1;  5.0;  6.0;  7.0;  8.0;  9.0;  10.0;  11.0;  11.1"
+despmtr   ymin_pO   " -0.5; -0.5; -0.5; -0.4; -0.4; -0.4; -0.3; -0.28; -0.28; -0.28"
+despmtr   zmin_pO   " -1.0; -1.0; -1.0; -0.9; -0.8; -0.6; -0.4; -0.20;  0.02;  0.02"
+despmtr   zmax_pO   " -0.4; -0.4; -0.3;  0.0;  0.3;  0.5;  0.6;  0.58;  0.58;  0.58"
+
+# wing OML
+despmtr   series_w  4409
+
+despmtr   xroot_w   4.0
+despmtr   zroot_w   0.2
+despmtr   croot_w   6.0
+despmtr   aroot_w   0.0
+
+despmtr   xmid_w    7.0
+despmtr   ymid_w    1.0
+despmtr   zmid_w    0.2
+despmtr   cmid_w    3.0
+despmtr   amid_w    0.0
+
+despmtr   xtip_w    9.0
+despmtr   ytip_w    4.6
+despmtr   ztip_w    0.1
+despmtr   ctip_w    1.0
+despmtr   atip_w    20.0
+
+# htail OML
+despmtr   series_h  0406
+
+despmtr   xroot_h  12.2
+despmtr   zroot_h   0.2
+despmtr   croot_h   1.8
+despmtr   aroot_h   0.0
+
+despmtr   xtip_h   13.5
+despmtr   ytip_h    2.6
+despmtr   ztip_h   -0.2
+despmtr   ctip_h    1.0
+despmtr   atip_h    0.0
+
+# vtail OML
+despmtr   series_v  0404
+
+despmtr   xroot_v  10.0
+despmtr   zroot_v   0.5
+despmtr   croot_v   3.5
+
+despmtr   xtip_v   14.0
+despmtr   ztip_v    3.1
+despmtr   ctip_v    1.0
+
+#fuselage IML
+despmtr   num_fI    8
+dimension x_fI      num_fI    1    1
+dimension ymin_fI   num_fI    1    1
+dimension zmin_fI   num_fI    1    1
+dimension zmax_fI   num_fI    1    1
+
+despmtr   x_fI      "  1.0;  1.5;  2.0;  3.0;  4.0;  5.0;  5.5;  6.0"
+despmtr   ymin_fI   " -0.3; -0.4; -0.5; -0.5; -0.5; -0.5; -0.5; -0.5"
+despmtr   zmin_fI   " -0.1; -.15; -0.2; -0.2; -0.2; -0.1; -.05;  0.0"
+despmtr   zmax_fI   "  0.1; 0.25;  0.4;  0.7;  1.1;  1.1;  1.0;  0.9"
+
+# propulsion IML
+despmtr   num_pI    12
+dimension x_pI      num_pI   1    1
+dimension ymin_pI   num_pI   1    1
+dimension zmin_pI   num_pI   1    1
+dimension zmax_pI   num_pI   1    1
+
+despmtr   x_pI      "  3.9;  5.0;  6.0;  7.0;  8.0;  9.0; 10.0; 11.0; 12.0; 13.0; 14.0; 14.1"
+despmtr   ymin_pI   " -0.4; -0.4; -0.3; -0.3; -0.3; -0.2; -0.2; -0.2; -0.2; -0.2; -0.2; -0.2"
+despmtr   zmin_pI   " -0.9; -0.9; -0.8; -0.7; -0.5; -0.3; -0.1;  0.1;  0.1;  0.1;  0.1; 0.1"
+despmtr   zmax_pI   " -0.5; -0.4; -0.1;  0.2;  0.4;  0.5;  0.5;  0.5;  0.5;  0.5;  0.5; 0.5"
+
+# structures
+despmtr   Tkeel     0.02
+despmtr   Tgunnel   0.02
+despmtr   Tbhead    0.01
+despmtr   Trib      0.01
+
+########## mid-surface aero (MSA) ##########
+
+patbeg  foo  makeMSA
+   # wing MSA
+   set       camber    100*nint(series_w/100)
+
+   mark
+   udprim    naca      Series    !camber
+   rotatez   -atip_w   0         0
+   rotatex   90        0         0
+   scale     ctip_w
+   translate xtip_w    -ytip_w   ztip_w
+
+   udprim    naca      Series    !camber
+   rotatez   -amid_w   0         0
+   rotatex   90        0         0
+   scale     cmid_w
+   translate xmid_w    -ymid_w   zmid_w
+
+   udprim    naca      Series    !camber
+   rotatez   -aroot_w  0         0
+   rotatex   90        0         0
+   scale     croot_w
+   translate xroot_w   0         zroot_w
+
+   udprim    naca      Series    !camber
+   rotatez   -amid_w   0         0
+   rotatex   90        0         0
+   scale     cmid_w
+   translate xmid_w    +ymid_w   zmid_w
+
+   udprim    naca      Series    !camber
+   rotatez   -atip_w   0         0
+   rotatex   90        0         0
+   scale     ctip_w
+   translate xtip_w    +ytip_w   ztip_w
+   loft 0
+   attribute wingMSA 0
+
+   dump fighter_wingMSA.egads
+
+   # htail MSA
+   set       camber    100*nint(series_h/100)
+
+   mark
+   udprim    naca      Series    !camber
+   rotatez   -atip_h   0         0
+   rotatex   90        0         0
+   scale     ctip_h
+   translate xtip_h   -ytip_h    ztip_h
+
+   udprim    naca      Series    !camber
+   rotatez   -aroot_h  0         0
+   rotatex   90        0         0
+   scale     croot_h
+   translate xroot_h   0         zroot_h
+
+   udprim    naca      Series    !camber
+   rotatez   -atip_h   0         0
+   rotatex   90        0         0
+   scale     ctip_h
+   translate xtip_h    ytip_h    ztip_h
+   loft 0
+   attribute htailMSA  0
+
+   dump fighter_htailMSA.egads
+
+   # vtail MSA
+   set       camber    100*nint(series_v/100)
+
+   mark
+   udprim    naca      Series    !camber
+   scale     croot_v
+   translate xroot_v   0         zroot_v
+
+   udprim    naca      Series    !camber
+   scale     ctip_v
+   translate xtip_v    0         ztip_v
+   loft 0
+   attribute vtailMSA  0
+
+   dump fighter_vtailMSA.egads
+patend
+
+########## outer/inner mold line (OML) ##########
+
+patbeg  foo  ifpos(makeOML+makeSSM+makeBEM,1,0)
+   # fuselage OML
+   mark
+   skbeg 0 0 0
+   skend
+
+   patbeg i num_fO
+       udprim ellipse  ry !abs(ymin_fO[i,1]) rz !(zmax_fO[i,1]-zmin_fO[i,1])/2
+       translate       x_fO[i,1] 0 (zmax_fO[i,1]+zmin_fO[i,1])/2
+   patend
+   loft 0
+   attribute fuselageOML 0
+
+   # propulsion OML
+   mark
+   patbeg i num_pO
+       udprim ellipse  ry !abs(ymin_pO[i,1]) rz !(zmax_pO[i,1]-zmin_pO[i,1])/2
+       translate       x_pO[i,1] 0 (zmax_pO[i,1]+zmin_pO[i,1])/2
+   patend
+   loft 0
+   attribute propulsionOML 0
+
+   union
+
+   # wing OML
+   mark
+   udprim    naca      Series    !series_w
+   rotatez   -atip_w   0         0
+   rotatex   90        0         0
+   scale     ctip_w
+   translate xtip_w    -ytip_w   ztip_w
+
+   udprim    naca      Series    !series_w
+   rotatez   -amid_w   0         0
+   rotatex   90        0         0
+   scale     cmid_w
+   translate xmid_w    -ymid_w   zmid_w
+
+   udprim    naca      Series    !series_w
+   rotatez   -aroot_w  0         0
+   rotatex   90        0         0
+   scale     croot_w
+   translate xroot_w   0         zroot_w
+
+   udprim    naca      Series    !series_w
+   rotatez   -amid_w   0         0
+   rotatex   90        0         0
+   scale     cmid_w
+   translate xmid_w    +ymid_w   zmid_w
+
+   udprim    naca      Series    !series_w
+   rotatez   -atip_w   0         0
+   rotatex   90        0         0
+   scale     ctip_w
+   translate xtip_w    +ytip_w   ztip_w
+   loft 0
+   attribute wingOML 0
+
+   union
+
+   # htail OML
+   mark
+   udprim    naca      Series    !series_h
+   rotatez   -atip_h   0         0
+   rotatex   90        0         0
+   scale     ctip_h
+   translate xtip_h   -ytip_h    ztip_h
+
+   udprim    naca      Series    !series_h
+   rotatez   -aroot_h  0         0
+   rotatex   90        0         0
+   scale     croot_h
+   translate xroot_h   0         zroot_h
+
+   udprim    naca      Series    !series_h
+   rotatez   -atip_h   0         0
+   rotatex   90        0         0
+   scale     ctip_h
+   translate xtip_h    ytip_h    ztip_h
+   loft 0
+   attribute htailOML  0
+
+   union
+
+   # vtail OML
+   mark
+   udprim    naca      Series    !series_v
+   scale     croot_v
+   translate xroot_v   0         zroot_v
+
+   udprim    naca      Series    !series_v
+   scale     ctip_v
+   translate xtip_v    0         ztip_v
+   loft 0
+   attribute vtailOML  0
+
+   union
+
+   #fuselage IML
+   mark
+   patbeg i num_fI
+       udprim ellipse  ry !abs(ymin_fI[i,1]) rz !(zmax_fI[i,1]-zmin_fI[i,1])/2
+       translate       x_fI[i,1] 0 (zmax_fI[i,1]+zmin_fI[i,1])/2
+   patend
+   loft 0
+   attribute cockpit 0
+
+   subtract
+
+   # propulsion IML
+   mark
+   patbeg i num_pI
+       udprim ellipse  ry !abs(ymin_pI[i,1]) rz !(zmax_pI[i,1]-zmin_pI[i,1])/2
+       translate       x_pI[i,1] 0 (zmax_pI[i,1]+zmin_pI[i,1])/2
+   patend
+   loft 0
+   attribute propulsionIML 0
+
+   subtract
+
+   dump fighter_OML.egads
+patend
+
+########## solid structural model (SSM) ##########
+
+patbeg  foo  makeSSM
+   # keel
+   skbeg     -0.1 -Tkeel -2.0
+      linseg 14.1 -Tkeel -2.0
+      linseg 14.1  Tkeel -2.0
+      linseg -0.1  Tkeel -2.0
+      linseg -0.1 -Tkeel -2.0
+   skend
+   extrude    0.0  0.0   3.2
+   attribute  keel 0
+
+   skbeg     10.0 -2*Tkeel  0.62
+      linseg 14.2 -2*Tkeel  0.62
+      linseg 14.2  2*Tkeel  0.62
+      linseg 10.0  2*Tkeel  0.62
+      linseg 10.0 -2*Tkeel  0.62
+   skend
+   extrude    0.0  0.0   3.2
+   subtract
+
+   # gunnels
+   skbeg           0          -0.6   -Tgunnel
+       patbeg i num_fO
+           linseg  x_fO[i,1]  -0.6   (zmin_fO[i,1]+zmax_fO[i,1])/2-Tgunnel
+       patend
+       patbeg i num_fO
+           set ii num_fO+1-i
+           linseg  x_fO[ii,1] -0.6   (zmin_fO[ii,1]+zmax_fO[ii,1])/2+Tgunnel
+       patend
+       linseg      0          -0.6   -Tgunnel
+   skend
+   extrude   0         1.2       0
+   attribute gunnels   0
+
+   union
+
+   # buldheads
+   patbeg ibhead num_fO-2
+      set xbhead ibhead-0.5
+
+      skbeg     xbhead-Tbhead -8.0 -2.0
+         linseg xbhead-Tbhead  8.0 -2.0
+         linseg xbhead+Tbhead  8.0 -2.0
+         linseg xbhead+Tbhead -8.0 -2.0
+         linseg xbhead-Tbhead -8.0 -2.0
+      skend
+      extrude   0.0            0.0  6.0
+      attribute bulkhead ibhead
+
+      union
+   patend
+
+   # ribs (right side)
+   patbeg irib 8
+       set yrib +(irib+1)/2
+
+       skbeg       6.0 yrib-Trib -1.0
+          linseg  15.0 yrib-Trib -1.0
+          linseg  15.0 yrib+Trib -1.0
+          linseg   6.0 yrib+Trib -1.0
+          linseg   6.0 yrib-Trib -1.0
+       skend
+       extrude     0.0 0.0          2.0
+       attribute   rrib irib
+
+       union
+   patend
+
+   # ribs (left side)
+   patbeg irib 8
+       set yrib -(irib+1)/2
+
+       skbeg       6.0 yrib-Trib -1.0
+          linseg  15.0 yrib-Trib -1.0
+          linseg  15.0 yrib+Trib -1.0
+          linseg   6.0 yrib+Trib -1.0
+          linseg   6.0 yrib-Trib -1.0
+       skend
+       extrude     0.0 0.0        2.0
+       attribute   lrib irib
+
+       union
+   patend
+
+   # ribs (vtail)
+   patbeg irib 4
+      set zrib (irib+1)/2
+
+      skbeg     10.0 -0.5 zrib-Trib
+         linseg 15.0 -0.5 zrib-Trib
+         linseg 15.0 -0.5 zrib+Trib
+         linseg 10.0 -0.5 zrib+Trib
+         linseg 10.0 -0.5 zrib-Trib
+      skend
+      extrude     0.0 1.0 0.0
+      attribute   hrib irib
+
+      union
+   patend
+
+   dump fighter_cutter.egads
+
+   import fighter_OML.egads
+   intersect
+
+   dump fighter_SSM.egads
+patend
+
+
+########## built-up element model (BEM) ##########
+
+patbeg  foo  makeBEM
+   # keel
+   skbeg     -0.1 0.0 -2.0
+      linseg 14.1 0.0 -2.0
+      linseg 14.1 0.0  4.0
+      linseg -0.1 0.0  4.0
+      linseg -0.1 0.0 -2.0
+   skend
+   attribute  keel 0
+
+   # buldheads
+   patbeg ibhead num_fO-2
+      set xbhead ibhead-0.5
+
+      skbeg     xbhead -8.0 -2.0
+         linseg xbhead  8.0 -2.0
+         linseg xbhead  8.0  4.0
+         linseg xbhead -8.0  4.0
+         linseg xbhead -8.0 -2.0
+      skend
+      attribute bulkhead ibhead
+
+      union
+   patend
+
+   # ribs (right side)
+   patbeg irib 8
+       set yrib +(irib+1)/2
+
+       skbeg       6.0 yrib -2.0
+          linseg  15.0 yrib -2.0
+          linseg  15.0 yrib  4.0
+          linseg   6.0 yrib  4.0
+          linseg   6.0 yrib -2.0
+       skend
+       attribute   rrib irib
+
+       union
+   patend
+
+   # ribs (left side)
+   patbeg irib 8
+       set yrib -(irib+1)/2
+
+       skbeg       6.0 yrib -2.0
+          linseg  15.0 yrib -2.0
+          linseg  15.0 yrib  4.0
+          linseg   6.0 yrib  4.0
+          linseg   6.0 yrib -2.0
+       skend
+       attribute   lrib irib
+
+       union
+   patend
+
+##    # ribs (vtail)
+##    patbeg irib 4
+##       set zrib (irib+1)/2
+##  
+##       skbeg     -0.1 -0.4 zrib
+##          linseg 14.1 -0.4 zrib
+##          linseg 14.1  0.4 zrib
+##          linseg -0.1  0.4 zrib
+##          linseg -0.1 -0.4 zrib
+##       skend
+##       attribute   hrib irib
+## 
+##       union
+##    patend
+
+   import fighter_OML.egads
+   intersect
+
+   dump fighter_BEM.egads
+patend
+
+
+end

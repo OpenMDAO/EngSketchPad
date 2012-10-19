@@ -1,0 +1,34 @@
+# loft1b
+# written by John Dannenhoffer
+
+mark
+   skbeg      8.0      1.0       -5.0
+      linseg  8.0      7.0       -5.0
+      linseg  1.0      7.0       -5.0
+      linseg  1.0      5.0       -5.0
+      cirarc  1.292893 4.292893  -5.0      2.0      4.0       -5.0
+      linseg  4.0      4.0       -5.0
+      linseg  8.0      1.0       -5.0
+   skend
+
+   skbeg      6.0      1.0        0.0
+      linseg  6.0      6.0        0.0
+      linseg  1.0      6.0        0.0
+      linseg  1.0      5.0        0.0
+      cirarc  1.292893 4.292893   0.0      2.0      4.0        0.0
+      linseg  4.0      4.0        0.0
+      linseg  6.0      1.0        0.0
+   skend
+
+   skbeg      8.0      1.0        5.0
+      linseg  8.0      7.0        5.0
+      linseg  1.0      7.0        5.0
+      linseg  1.0      5.0        5.0
+      cirarc  1.292893 4.292893   5.0      2.0      4.0        5.0
+      linseg  4.0      4.0        5.0
+      linseg  8.0      1.0        5.0
+   skend
+loft 0
+
+end
+

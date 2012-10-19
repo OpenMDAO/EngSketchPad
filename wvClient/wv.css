@@ -1,0 +1,65 @@
+/* light yellow backbround to table data entries */
+td {
+    padding-left:         5px;
+    padding-right:       10px;
+    padding-top:          0px;
+    padding-bottom:       0px;
+    background-color: #FFFFEF;
+}
+
+/* real text that looks like a link */
+.fakelink {
+    cursor:           pointer;
+    text-decoration:     none;
+    font-weight:         bold;
+    color:            #0000FF;
+}
+
+/* real text that looks like a link that is "on" */
+.fakelinkon {
+    cursor:           pointer;
+    text-decoration:     none;
+    font-weight:         bold;
+    color:            #0000FF;
+}
+
+/* real text that looks like a link that is "off" */
+.fakelinkoff {
+    cursor:           pointer;
+    text-decoration:     none;
+    font-weight:         bold;
+    color:            #7F0000;
+}
+
+/* frame on top left that contains menus, trees, etc */
+#leftframe {
+    width:              250px;
+    height:             600px;
+    float:               left;
+    overflow:          scroll;
+    font-size:           10pt;
+}
+
+/* frame on top right that contains the viewer */
+#riteframe {
+    width:              750px;
+    height:             600px;
+    float:               left;
+    overflow:          scroll;
+}
+
+/* frame on bottom that contains messages */
+#botmframe {
+    width:             1010px;
+    height:             150px;
+    overflow:          scroll;
+    font-family:      courier, monospace;
+    font-size:           10pt;
+}
+
+/* canvas that holds WebGL image */
+canvas {
+    width:              735px;
+    height:             729px;
+    border-width:         0px;
+}

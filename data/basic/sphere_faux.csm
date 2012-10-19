@@ -1,0 +1,21 @@
+# sphere_faux
+# written by John Dannenhoffer
+
+# sphere        0.00      0.00      0.00      1.00
+
+skbeg          -1.00      0.00      0.00
+   linseg       1.00      0.00      0.00
+   cirarc       0.00      1.00      0.00     -1.00      0.00      0.00
+skend
+revolve         0.00      0.00      0.00      1.00      0.00      0.00      180.
+
+skbeg          -1.00      0.00      0.00
+   linseg       1.00      0.00      0.00
+   cirarc       0.00      1.00      0.00     -1.00      0.00      0.00
+skend
+revolve         0.00      0.00      0.00      1.00      0.00      0.00      180.
+rotatex         180.      0.00      0.00
+
+union
+
+end

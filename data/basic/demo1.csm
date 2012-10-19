@@ -1,0 +1,11 @@
+# demo1
+# written by John Dannenhoffer
+
+box            -1.00     -1.00     -1.00      2.00      2.00      2.00
+cylinder        0.90      0.00      0.00      0.90      2.00      0.00      0.50
+union
+
+cylinder        0.50      -.50      0.50      1.20      -.50      0.50      0.25
+subtract
+
+end

@@ -1,0 +1,80 @@
+/* background for table data entries (light-yellow) */
+td {
+    padding-left:               5px;
+    padding-right:              5px;
+    padding-top:                0px;
+    padding-bottom:             0px;
+    background-color:       #FFFFDF;
+}
+
+/* background for error table data entries (light-red) */
+.errorTD {
+    padding-left:               5px;
+    padding-right:              5px;
+    padding-top:                0px;
+    padding-bottom:             0px;
+    background-color:       #FF7F7F;
+}
+
+/* background for linked table data entries (light-green) */
+.linkedTD {
+    padding-left:               5px;
+    padding-right:              5px;
+    padding-top:                0px;
+    padding-bottom:             0px;
+    background-color:       #7FFF7F;
+}
+
+/* real text that looks like a link that has context-menu (dark-green) */
+.fakelinkcmenu {
+    cursor:                 pointer;
+    font-weight:               bold;
+    color:                  #003F00;
+}
+
+/* real text that looks like a link that is "on" (blue)*/
+.fakelinkon {
+    cursor:                 pointer;
+    font-weight:               bold;
+    color:                  #0000FF;
+}
+
+/* real text that looks like a link that is "off" (red)*/
+.fakelinkoff {
+    cursor:                 pointer;
+    font-weight:               bold;
+    color:                  #FF0000;
+}
+
+/* frame on top left that contains menus, trees, etc */
+#leftframe {
+    width:                    250px;
+    height:                   600px;
+    float:                     left;
+    overflow:                scroll;
+    font-size:                  9pt;
+}
+
+/* frame on top right that contains the viewer */
+#riteframe {
+    width:                    750px;
+    height:                   600px;
+    float:                     left;
+    overflow:                scroll;
+}
+
+/* frame on bottom that contains messages */
+#botmframe {
+    width:                   1010px;
+    height:                   150px;
+    overflow:                scroll;
+    font-family: courier, monospace;
+    font-size:                  9pt;
+}
+
+/* canvas that holds WebGL image */
+canvas {
+    width:                    735px;
+    height:                   729px;
+    border-width:               0px;
+}

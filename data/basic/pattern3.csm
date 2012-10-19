@@ -1,0 +1,32 @@
+# pattern3 (plate withholes)
+# written by John Dannenhoffer
+
+# default design parameters
+despmtr   R1      4.5000    radius    of plate
+despmtr   T       0.2000    thickness of plate
+despmtr   D1      1.0000    distance between hole centers
+despmtr   R2      0.4000    radius of holes
+
+# overall plate
+cylinder 0 0 -T/2 0 0 +T/2 R1
+
+# pattern for holes
+set nr int(R1/D1)
+
+patbeg iy 1+2*nr
+   patbeg ix 1+2*nr
+
+      set xc "(ix-nr-1)*D1 + (iy-nr-1)*D1*cosd(60)"
+      set yc                "(iy-nr-1)*D1*sind(60)"
+      set r  hypot(xc,yc)+R2
+
+      # mask hole if not within circle
+      patbeg foo ifpos(R1-r,1,0)
+         cylinder xc yc -T xc yc +T R2
+         subtract
+      patend
+   patend
+patend
+
+end
+

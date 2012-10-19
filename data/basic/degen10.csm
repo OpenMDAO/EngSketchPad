@@ -1,0 +1,12 @@
+# degen10
+# written by John Dannenhoffer
+
+skbeg         -1.0000    0.0000   -1.0000
+   linseg     -1.0000    0.0000    1.0000
+   linseg      1.0000    0.0000    1.0000
+   linseg      1.0000    0.0000   -1.0000
+   linseg     -1.0000    0.0000   -1.0000
+skend
+revolve       -1.0000    0.0000   -1.0000    1.0000    0.0000    0.0000    60.000
+
+end

@@ -1,0 +1,121 @@
+# worms
+# written by John Dannenhoffer
+
+# box
+box            -10.0     -10.0     -10.0      20.0      20.0      20.0
+
+# x-axis wormholes
+skbeg           -2.0      -5.0     -10.0
+   cirarc        0.0      -7.0     -10.0       2.0      -5.0     -10.0
+   cirarc        0.0      -3.0     -10.0      -2.0      -5.0     -10.0
+skend
+revolve          0.0     -10.0     -10.0       1.0       0.0       0.0      210.0
+rotatex        -60.0     -10.0     -10.0
+subtract
+
+skbeg           -2.0      10.0      -5.0
+   cirarc        0.0      10.0      -7.0       2.0      10.0      -5.0
+   cirarc        0.0      10.0      -3.0      -2.0      10.0      -5.0
+skend
+revolve          0.0      10.0     -10.0       1.0       0.0       0.0      210.0
+rotatex        -60.0      10.0     -10.0
+subtract
+
+# far x-axis squareholex
+skbeg           -2.0       3.0      10.0
+   linseg        2.0       3.0      10.0
+   linseg        2.0       7.0      10.0
+   linseg       -2.0       7.0      10.0
+   linseg       -2.0       3.0      10.0
+skend
+revolve          0.0      10.0      10.0       1.0       0.0       0.0     210.0
+rotatex        -60.0      10.0      10.0
+subtract
+
+skbeg           -2.0     -10.0       3.0
+   linseg        2.0     -10.0       3.0
+   linseg        2.0     -10.0       7.0
+   linseg       -2.0     -10.0       7.0
+   linseg       -2.0     -10.0       3.0
+skend
+revolve          0.0     -10.0      10.0       1.0       0.0       0.0     210.0
+rotatex        -60.0     -10.0      10.0
+subtract
+
+# y-axis wormholes
+skbeg          -10.0      -2.0      -5.0
+   cirarc      -10.0       0.0      -7.0     -10.0       2.0      -5.0
+   cirarc      -10.0       0.0      -3.0     -10.0      -2.0      -5.0
+skend
+revolve        -10.0       0.0     -10.0       0.0       1.0       0.0     210.0
+rotatey        -60.0     -10.0     -10.0
+subtract
+
+skbeg           -5.0      -2.0      10.0
+   cirarc       -7.0       0.0      10.0      -5.0       2.0      10.0
+   cirarc       -3.0       0.0      10.0      -5.0      -2.0      10.0
+skend
+revolve        -10.0       0.0      10.0       0.0       1.0       0.0     210.0
+rotatey        -60.0      10.0     -10.0
+subtract
+
+# far y-axis squareholes
+skbeg           10.0      -2.0       3.0
+   linseg       10.0       2.0       3.0
+   linseg       10.0       2.0       7.0
+   linseg       10.0      -2.0       7.0
+   linseg       10.0      -2.0       3.0
+skend
+revolve         10.0       0.0      10.0       0.0       1.0       0.0     210.0
+rotatey        -60.0      10.0      10.0
+subtract
+
+skbeg            3.0      -2.0     -10.0
+   linseg        3.0       2.0     -10.0
+   linseg        7.0       2.0     -10.0
+   linseg        7.0      -2.0     -10.0
+   linseg        3.0      -2.0     -10.0
+skend
+revolve         10.0       0.0     -10.0       0.0       1.0       0.0     210.0
+rotatey        -60.0     -10.0      10.0
+subtract
+
+# z-axis wormholes
+skbeg           -5.0     -10.0      -2.0
+   cirarc       -7.0     -10.0       0.0      -5.0     -10.0       2.0
+   cirarc       -3.0     -10.0       0.0      -5.0     -10.0      -2.0
+skend
+revolve        -10.0     -10.0       0.0       0.0       0.0       1.0     210.0
+rotatez        -60.0     -10.0     -10.0
+subtract
+
+skbeg           10.0      -5.0      -2.0
+   cirarc       10.0      -7.0       0.0      10.0      -5.0       2.0
+   cirarc       10.0      -3.0       0.0      10.0      -5.0      -2.0
+skend
+revolve         10.0     -10.0       0.0       0.0       0.0       1.0     210.0
+rotatez        -60.0      10.0     -10.0
+subtract
+
+# far z-axis squareholes
+skbeg            3.0      10.0      -2.0
+   linseg        3.0      10.0       2.0
+   linseg        7.0      10.0       2.0
+   linseg        7.0      10.0      -2.0
+   linseg        3.0      10.0      -2.0
+skend
+revolve         10.0      10.0       0.0       0.0       0.0       1.0     210.0
+rotatez        -60.0      10.0      10.0
+subtract
+
+skbeg         -10.0        3.0      -2.0
+   linseg     -10.0        3.0       2.0
+   linseg     -10.0        7.0       2.0
+   linseg     -10.0        7.0      -2.0
+   linseg     -10.0        3.0      -2.0
+skend
+revolve       -10.0       10.0       0.0       0.0       0.0       1.0     210.0
+rotatez       -60.0      -10.0      10.0
+subtract
+
+end

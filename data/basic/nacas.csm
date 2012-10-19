@@ -1,0 +1,12 @@
+# nacas
+# written by John Dannenhoffer
+
+patbeg icamber 6
+    set dz     (icamber-1)
+    set series 2000*dz+412
+
+    udprim naca Series !series
+    translate 0 0 dz/2
+patend
+
+end

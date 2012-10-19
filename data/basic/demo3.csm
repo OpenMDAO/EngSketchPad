@@ -1,0 +1,43 @@
+# demo3
+# written by John Dannenhoffer
+
+despmtr        xmin      -1.00
+despmtr        xmax       1.00
+despmtr        ymin      -1.00
+despmtr        ymax       1.00
+despmtr        zmin      -1.00
+despmtr        zmax       1.00
+
+box            xmin       ymin      zmin      xmax-xmin ymax-ymin zmax-zmin
+name           box
+fillet         0.20
+attribute      filletRad 0.20
+
+skbeg          0.50      0.00      0.10
+    cirarc     1.00      0.00     -0.40      0.50      0.00     -0.90
+    linseg     0.00      0.00     -0.90
+    cirarc    -0.50      0.00     -0.40      0.00      0.00      0.10
+    linseg     0.50      0.00      0.10
+skend
+extrude        0.00      2.00      0.00
+translate      0.40      0.00      0.25
+name           addition
+union
+fillet         0.10
+attribute      filletRad 0.10
+
+set      yc    -.50
+set      zc    0.25
+
+skbeg          0.50      yc-.2     zc-.40
+    cirarc     0.50      yc        zc-.45    0.50      yc+.2     zc-.40
+    linseg     0.50      yc+.2     zc+.40
+    set        dummy     0.00
+    cirarc     0.50      yc        zc+.45    0.50      yc-.2     zc+.40
+    linseg     0.50      yc-.2     zc-.40
+skend
+extrude        0.70      0.00      0.00
+subtract
+name           hole
+
+end

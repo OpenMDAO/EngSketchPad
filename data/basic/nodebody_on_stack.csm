@@ -1,0 +1,16 @@
+# nodebody_on_stack
+# written by John Dannenhoffer
+
+skbeg    -1.0 0.0 0.0
+skend
+
+skbeg     0.0 0.0 0.0
+   cirarc 0.0 0.7 0.3 0.0 1.0 1.0
+   cirarc 0.0 2.0 2.0 0.0 3.0 1.0
+   cirarc 0.0 3.3 0.3 0.0 4.0 0.0
+skend
+
+skbeg     1.0 0.0 0.0
+skend
+
+end

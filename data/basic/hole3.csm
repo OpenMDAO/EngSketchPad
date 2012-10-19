@@ -1,0 +1,24 @@
+# hole3  (cylinder holes)
+# written by John Dannenhoffer
+
+box       -3   -3   -3    6    6    6
+
+cylinder   2    0    0    4    0    0    1
+subtract
+
+cylinder  -4    0    0   -2    0    0    1
+subtract
+
+cylinder   0    2    0    0    4    0    1
+subtract
+
+cylinder   0   -4    0    0   -2    0    1
+subtract
+
+cylinder   0    0    2    0    0    4    1
+subtract
+
+cylinder   0    0   -4    0    0   -2    1
+subtract
+
+end

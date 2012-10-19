@@ -1,0 +1,29 @@
+# sheet13
+# written by John Dannenhoffer
+
+skbeg     -1.0 -1.0  0.1
+   linseg  1.0 -1.0  0.1
+   linseg  1.0  1.0  0.1
+   linseg -1.0  1.0  0.1
+   linseg -1.0 -1.0  0.1
+skend
+
+skbeg     -1.0  0.1 -1.0
+   linseg -1.0  0.1  1.0
+   linseg  1.0  0.1  1.0
+   linseg  1.0  0.1 -1.0
+   linseg -1.0  0.1 -1.0
+skend
+
+union
+
+skbeg      0.1 -0.5 -0.5
+   linseg  0.1  0.5 -0.5
+   linseg  0.1  0.5  0.5
+   linseg  0.1 -0.5  0.5
+   linseg  0.1 -0.5 -0.5
+skend
+
+union
+
+end

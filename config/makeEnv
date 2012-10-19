@@ -1,0 +1,207 @@
+#!/bin/bash
+
+echo
+echo "OpenCASCADE runtime AutoConfigurator"
+echo
+#
+# if arg1 is present set it to CASROOT, second is CASARCH (also optional)
+#
+if [ "$1" ]; then
+	CASROOT=$1
+	CASARCH=
+	CASREV=
+	if [ "$2" ]; then
+		CASARCH=$2
+	fi
+fi
+
+#
+# we must know where the OpenCASCADE distribution is!
+#
+if [ -z "$CASROOT" ]; then
+	echo "ERROR - CASROOT not defined - set or input as argument!"
+	exit
+fi
+
+#
+# is CASROOT pointing to a valid location?
+#
+if [ -d "$CASROOT" ]; then
+	echo "CASROOT =" $CASROOT " with contents:"
+	ls "$CASROOT"
+	echo 
+else
+	echo "ERROR - CASROOT does not point to a valid directory!"
+	exit
+fi
+
+ARCH=UNKNOWN
+MACOSX=UNKNOWN
+
+#
+# determine the machine type
+#
+if [ -f /bin/uname -o -f /usr/bin/uname \
+		-o -f /bin/uname.exe -o -f /usr/bin/uname.exe ]; then
+	if [ -f /bin/uname ]; then
+		os="`/bin/uname -s`"
+		rl="`/bin/uname -r`"
+	elif [ -f /usr/bin/uname ]; then
+		os="`/usr/bin/uname -s`"
+		rl="`/usr/bin/uname -r`"
+	elif [ -f /bin/uname.exe ]; then
+		os="`/bin/uname.exe -s`"
+		rl="`/bin/uname.exe -r`"
+	else
+		os="`/usr/bin/uname.exe -s`"
+		rl="`/usr/bin/uname.exe -r`"
+	fi
+
+	ARCH=$os
+fi
+if [ "$ARCH" = UNKNOWN ]; then
+	echo "ERROR - Cannot parse Machine type!"
+	exit
+fi
+
+#
+# determine the version of OSX
+#
+if [ "$ARCH" = Darwin ]; then
+	case "$rl" in
+	 9.*) MACOSX=10.5 ;;
+	10.*) MACOSX=10.6 ;;
+	11.*) MACOSX=10.7 ;;
+	12.*) MACOSX=10.8 ;;
+	esac
+fi
+
+#
+# determine CASARCH (if not aleardy set)
+#
+if [ -z "$CASARCH" ]; then
+  if [ -d "$CASROOT/$ARCH" ]; then
+    CASARCH=$ARCH
+  else
+    CASARCH=.
+  fi
+fi
+
+#
+# look at an so/dylib to determine the pointer size
+#
+BITS=UNKNOWN
+if [ "$ARCH" = Darwin ]; then
+	ft="`file -bL $CASROOT/$CASARCH/lib/libPTKernel.dylib`"
+	case $ft in
+	*64   ) BITS=64 ;;
+	*i386 ) BITS=32 ;;
+	esac
+else
+	ft="`file -bL $CASROOT/$CASARCH/lib/libPTKernel.so`"
+	case $ft in
+	*64* ) BITS=64 ;;
+	*32* ) BITS=32 ;;
+	esac
+	if [ "$BITS" = UNKNOWN ]; then
+		ft="`file -bL /usr/lib/libPTKernel.so`"
+		case $ft in
+		*64* ) BITS=64 ;;
+		*32* ) BITS=32 ;;
+		esac
+	fi
+fi
+if [ "$BITS" = UNKNOWN ]; then
+	echo "ERROR - Cannot parse OpenCASCADE library pointer size!"
+	exit
+fi
+
+#
+# set our architecture
+#
+if [ "$ARCH" = Darwin ]; then
+	CARCH=DARWIN
+	if [ "$BITS" = 64 ]; then
+		CARCH=DARWIN64
+	fi
+else
+	CARCH=LINUX
+	if [ "$BITS" = 64 ]; then
+		CARCH=LINUX64
+	fi
+fi
+
+#
+# determine the OCC rev
+#
+if [ -z "$CASREV" ]; then
+	incfl=UNKNOWN
+	if [ -f "$CASROOT/include/Standard_Version.hxx" ]; then
+		incfl=$CASROOT/include/Standard_Version.hxx
+	elif [ -f "$CASROOT/inc/Standard_Version.hxx" ]; then
+		incfl=$CASROOT/inc/Standard_Version.hxx
+	elif [ -f "$CASROOT/include/oce/Standard_Version.hxx" ]; then
+		incfl=$CASROOT/include/oce/Standard_Version.hxx
+	elif [ -f "$CASROOT/Standard_Version.hxx" ]; then
+		incfl=$CASROOT/Standard_Version.hxx
+	fi
+	if [ "$incfl" = UNKNOWN ]; then
+		echo "ERROR - Cannot find OpenCASCADE Version include!"
+		exit
+	fi
+	exec < "$incfl"
+	while read -a words
+	do
+		if [ "${words[1]}" = OCC_VERSION ]; then
+			CASREV=${words[2]}
+		fi
+	done
+	if [ -z "$CASREV" ]; then
+		echo "ERROR - Cannot parse OpenCASCADE Version!"
+		exit
+	fi
+fi
+
+#
+# done.
+#
+BASE=`pwd | sed -e 'sx/configxx'`
+if [ "$MACOSX" != UNKNOWN ]; then
+	echo "MACOSX  =" $MACOSX
+fi
+echo "CARCH   =" $CARCH
+echo "CASROOT =" $CASROOT
+echo "CASARCH =" $CASARCH
+echo "CASREV  =" $CASREV
+#
+echo "#"                        > ../GEMenv.sh
+echo "export GEM_ARCH="$CARCH  >> ../GEMenv.sh
+echo "export GEM_ROOT="$BASE   >> ../GEMenv.sh
+echo "export CASROOT="$CASROOT >> ../GEMenv.sh
+echo "export CASARCH="$CASARCH >> ../GEMenv.sh
+echo "export CASREV="$CASREV   >> ../GEMenv.sh
+if [ "$ARCH" = Darwin ]; then
+	if [ "$MACOSX" != UNKNOWN ]; then
+		echo "export MACOSX="$MACOSX   >> ../GEMenv.sh
+	fi
+	echo "export DYLD_LIBRARY_PATH=$CASROOT/$CASARCH/lib:$BASE/lib":'$DYLD_LIBRARY_PATH' >> ../GEMenv.sh
+else
+	echo "export LD_LIBRARY_PATH=$CASROOT/$CASARCH/lib:$BASE/lib":'$LD_LIBRARY_PATH' >> ../GEMenv.sh
+fi
+#
+echo "#"                        > ../GEMenv.csh
+echo "setenv GEM_ARCH "$CARCH  >> ../GEMenv.csh
+echo "setenv GEM_ROOT "$BASE   >> ../GEMenv.csh
+echo "setenv CASROOT "$CASROOT >> ../GEMenv.csh
+echo "setenv CASARCH "$CASARCH >> ../GEMenv.csh
+echo "setenv CASREV "$CASREV   >> ../GEMenv.csh
+if [ "$ARCH" = Darwin ]; then
+	if [ "$MACOSX" != UNKNOWN ]; then
+		echo "setenv MACOSX "$MACOSX   >> ../GEMenv.csh
+	fi
+	echo "setenv DYLD_LIBRARY_PATH $CASROOT/$CASARCH/lib:$BASE/lib":'$DYLD_LIBRARY_PATH' >> ../GEMenv.csh
+else
+	echo "setenv LD_LIBRARY_PATH $CASROOT/$CASARCH/lib:$BASE/lib":'$LD_LIBRARY_PATH' >> ../GEMenv.csh
+fi
+
+exit

@@ -1,0 +1,20 @@
+# pattern1d
+# written by John Dannenhoffer
+
+box             0.00      0.00     -1.00      3.00      4.00      2.00
+
+patbeg idum 1
+   patbeg iy 3
+      cylinder  1.00      iy       -2.00      1.00      iy        2.00      0.40
+      attribute hole      1+iy/10
+      subtract
+   patend
+
+   patbeg iy 3
+      cylinder  2.00      iy       -2.00      2.00      iy        2.00      0.40
+      attribute hole      2+iy/10
+      subtract
+   patend
+patend
+
+end

@@ -1,0 +1,12 @@
+#
+# WINDOWS 32 bit using MSVS 9.0 (2008):
+#
+LIBPTH = /link /LIBPATH:$(GEM_ROOT)\lib /LIBPATH:$(CASROOT)\$(CASARCH)\lib
+LNKPTH = /LIBPATH:$(CASROOT)\$(CASARCH)\lib
+INCS   = /I$(CASROOT)\include\oce /I$(CASROOT)\inc
+DEFINE = /DWNT /DNDEBUG /D_CONSOLE /DWIN32 /DREVISION=$(CASREV)
+COPTS  = /Ox /MD /D_CRT_SECURE_NO_DEPRECATE
+CPPOPT = /Ox /MD /EHsc /GR /D_CRT_SECURE_NO_DEPRECATE
+FOPTS  = /Ox /threads /recursive /libs:dll /traceback
+LIBS   = TKBool.lib TKernel.lib TKFeat.lib TKBO.lib TKGeomAlgo.lib TKMath.lib TKOffset.lib TKPrim.lib TKPShape.lib TKTopAlgo.lib TKBRep.lib TKG2d.lib TKG3d.lib TKGeomBase.lib TKShHealing.lib TKSTEP.lib TKSTEP209.lib TKSTEPBase.lib TKSTEPAttr.lib TKXSBase.lib TKIGES.lib TKFillet.lib PTKernel.lib
+MCOMP  = mt

@@ -1,0 +1,12 @@
+# swirl
+# written by John Dannenhoffer
+
+box     -5 0 -5 10 1 10
+
+patbeg ibox 9
+   box -5 ibox -5 10 1 10
+   rotatey ibox*10 0 0
+   union
+patend
+
+end

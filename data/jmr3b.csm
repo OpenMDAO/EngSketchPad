@@ -1,0 +1,261 @@
+# JMR3 (john's made-up rocket)
+# written by John Dannenhoffer
+
+# default design parameters
+despmtr  finAngle     0
+despmtr  thrusterDX   0
+
+# nose and body
+macbeg 1
+   skbeg       10.000000  0.000000  0.000000
+      linseg   -2.316228  0.000000  0.000000
+      cirarc   -2.256537  0.184902  0.000000 -2.100000  0.300000  0.000000
+      linseg    0.000000  1.000000  0.000000
+      linseg   10.000000  1.000000  0.000000
+      linseg   10.000000  0.000000  0.000000
+   skend
+   revolve      0.00      0.00      0.00      1.00      0.00      0.00      180.00
+macend
+
+recall  1
+rotatex         90.0      0.00      0.00
+
+recall  1
+rotatex        -90.0      0.00      0.00
+union
+
+# base spheres
+skbeg          9.95      0.70      0.50
+   cirarc      9.95      0.50      0.30      9.95      0.70      0.10
+   linseg      9.95      0.70      0.50
+skend
+revolve        9.95      0.70      0.30      0.00      0.00      1.00       180.0
+union
+
+skbeg          9.95      0.70     -0.10
+   cirarc      9.95      0.50     -0.30      9.95      0.70     -0.50
+   linseg      9.95      0.70     -0.10
+skend
+revolve        9.95      0.70      0.30      0.00      0.00      1.00       180.0
+union
+
+cylinder       10.10      0.70      0.30     10.10      0.70     -0.30      0.03
+union
+
+# base box (with holes)
+box             9.80     -0.80     -0.45      0.40      0.25      0.90
+cylinder        9.50     -0.68      0.30     10.20     -0.68      0.30      0.10
+subtract
+cylinder        9.50     -0.68      0.00     10.20     -0.68      0.00      0.10
+subtract
+cylinder        9.50     -0.68     -0.30     10.20     -0.68     -0.30      0.10
+subtract
+union
+
+# base coolers
+box             9.80     -0.30     -0.75      0.40      0.60      0.20
+subtract
+cylinder        9.90     -0.20     -0.80      9.90     -0.20     -0.50      0.02
+union
+cylinder        9.90     -0.10     -0.80      9.90     -0.10     -0.50      0.02
+union
+cylinder        9.90      0.00     -0.80      9.90      0.00     -0.50      0.02
+union
+cylinder        9.90      0.10     -0.80      9.90      0.10     -0.50      0.02
+union
+cylinder        9.90      0.20     -0.80      9.90      0.20     -0.50      0.02
+union
+
+box             9.80     -0.30      0.55      0.40      0.60      0.20
+subtract
+cylinder        9.90     -0.20      0.50      9.90     -0.20      0.80      0.02
+union
+cylinder        9.90     -0.10      0.50      9.90     -0.10      0.80      0.02
+union
+cylinder        9.90      0.00      0.50      9.90      0.00      0.80      0.02
+union
+cylinder        9.90      0.10      0.50      9.90      0.10      0.80      0.02
+union
+cylinder        9.90      0.20      0.50      9.90      0.20      0.80      0.02
+union
+
+# nozzle
+macbeg 2
+   skbeg       9.50      0.00      0.05
+      linseg  11.00      0.00      0.65
+      linseg  11.50      0.00      0.75
+      linseg  11.50      0.00      0.80
+      linseg  11.00      0.00      0.70
+      linseg   9.50      0.00      0.10
+      linseg   9.50      0.00      0.05
+   skend
+   revolve    10.00      0.00      0.00      1.00       0.00      0.00      180.0
+macend
+
+recall  2
+recall  2
+rotatex         180.0      0.00      0.00
+union
+union
+
+# stiffening rings
+skbeg            4.90      0.95      0.00
+   linseg        5.10      0.95      0.00
+   cirarc        5.00      1.03      0.00      4.90      0.95      0.00
+skend
+revolve          5.00      0.00      0.00      1.00      0.00      0.00      180.0
+rotatex         90.00      0.00      0.00
+skbeg            4.90      0.95      0.00
+   linseg        5.10      0.95      0.00
+   cirarc        5.00      1.03      0.00      4.90      0.95      0.00
+skend
+revolve          5.00      0.00      0.00      1.00      0.00      0.00      180.0
+rotatex        -90.00      0.00      0.00
+union
+union
+
+skbeg            7.40      0.95      0.00
+   linseg        7.60      0.95      0.00
+   cirarc        7.50      1.03      0.00      7.40      0.95      0.00
+skend
+revolve          7.50      0.00      0.00      1.00      0.00      0.00      180.0
+rotatex         90.00      0.00      0.00
+skbeg            7.40      0.95      0.00
+   linseg        7.60      0.95      0.00
+   cirarc        7.50      1.03      0.00      7.40      0.95      0.00
+skend
+revolve          7.50      0.00      0.00      1.00      0.00      0.00      180.0
+rotatex        -90.00      0.00      0.00
+union
+union
+
+# support rail with holes
+box             5.00     -0.05      0.95      2.50      0.10      0.07
+cylinder        5.50      0.00      0.94      5.50      0.00      1.04      0.03
+subtract
+cylinder        6.00      0.00      0.94      6.00      0.00      1.04      0.03
+subtract
+cylinder        6.50      0.00      0.94      6.50      0.00      1.04      0.03
+subtract
+cylinder        7.00      0.00      0.94      7.00      0.00      1.04      0.03
+subtract
+rotatex        30.00      0.00      0.00
+union
+
+# vent line with supports
+skbeg           2.00      1.10     -0.05
+   cirarc       2.00      1.15      0.00      2.00      1.10      0.05
+   cirarc       2.00      1.05      0.00      2.00      1.10     -0.05
+skend
+revolve         2.00      0.70      0.00      0.00      0.00      1.00     90.0
+cylinder        2.00      1.10      0.00     10.30      1.10      0.00      0.05
+union
+cylinder        4.00      0.95      0.00      4.00      1.10      0.00     0.025
+union
+cylinder        6.50      0.95      0.00      6.50      1.10      0.00     0.025
+union
+cylinder        9.00      0.95      0.00      9.00      1.10      0.00     0.025
+union
+union
+
+# macro for thrusters
+macbeg 3
+   skbeg           1.25      1.10     -0.05
+      linseg       1.05      1.10     -0.05
+      cirarc       0.90      0.95     -0.05      1.05      0.80     -0.05
+      linseg       1.25      0.80     -0.05
+      linseg       1.25      1.10     -0.05
+   skend
+   extrude         0.00      0.00      0.10
+
+   skbeg           1.15      1.05      0.15
+      linseg       1.11      1.05      0.15
+      linseg       1.14      1.05      0.00
+      linseg       1.11      1.05     -0.15
+      linseg       1.15      1.05     -0.15
+      linseg       1.15      1.05      0.15
+   skend
+   revolve         1.15      1.05      0.00      0.00      0.00      1.00      180.0
+   union
+
+   skbeg           1.15      1.05      0.15
+      linseg       1.11      1.05      0.15
+      linseg       1.14      1.05      0.00
+      linseg       1.11      1.05     -0.15
+      linseg       1.15      1.05     -0.15
+      linseg       1.15      1.05      0.15
+   skend
+   revolve         1.15      1.05      0.00      0.00      0.00      1.00      180.0
+   rotatez         180.0     1.15      1.05
+   union
+   translate       thrusterDX 0.00     0.00
+macend
+
+# thruster 1
+recall  3
+rotatex        45.00      0.00      0.00
+union
+
+# thruster 2
+recall  3
+rotatex       -45.00      0.00      0.00
+union
+
+# thruster 3
+recall  3
+rotatex       135.00      0.00      0.00
+union
+
+# thruster 4
+recall  3
+rotatex      -135.00      0.00      0.00
+union
+
+# macro for fins
+macbeg 4
+   skbeg        8.00     -1.30     -0.02
+      linseg   10.00     -2.00     -0.02
+      linseg   10.00     -1.01     -0.02
+      linseg    8.00     -1.01     -0.02
+      linseg    8.00     -1.30     -0.02
+   skend
+   extrude      0.00      0.00      0.04
+
+   skbeg        9.25     -0.90      0.00
+      linseg    9.15     -0.90      0.00
+      linseg    9.15     -1.10      0.00
+      linseg    9.25     -1.40      0.00
+      linseg    9.25     -0.90      0.00
+   skend
+   revolve      9.25     -1.00      0.00      0.00      1.00      0.00      180.0
+   rotatey       90.0     0.00      9.25
+   union
+
+   skbeg        9.25     -0.90      0.00
+      linseg    9.15     -0.90      0.00
+      linseg    9.15     -1.10      0.00
+      linseg    9.25     -1.40      0.00
+      linseg    9.25     -0.90      0.00
+   skend
+   revolve      9.25     -1.00      0.00      0.00      1.00      0.00      180.0
+   rotatey      -90.0     0.00      9.25
+   union
+   rotatey         finAngle  0.00      9.25
+macend
+
+# fin 1
+recall  4
+rotatex      -120.00      0.00      0.00
+union
+
+# fin 2
+recall  4
+rotatex       120.00      0.00      0.00
+union
+
+# fin 3
+recall  4
+rotatex         0.00      0.00      0.00
+union
+
+end

@@ -1,0 +1,9 @@
+# spheres
+# written by John Dannenhoffer
+
+sphere          0.00      0.00      0.00      1.00
+sphere          0.70      0.80      0.00      1.20
+union
+sphere          0.00     -0.80      0.75      0.50
+subtract
+end
